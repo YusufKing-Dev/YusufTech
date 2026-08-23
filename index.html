@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YUSUF TECH — Web Developer for Businesses & Professionals</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0d0f12;
+    --surface:#16181d;
+    --surface-2:#1d2027;
+    --line:rgba(242,241,236,0.09);
+    --off:#f2f1ec;
+    --off-dim:rgba(242,241,236,0.62);
+    --amber:#ffb020;
+    --amber-dim:rgba(255,176,32,0.14);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  html{background:var(--ink);}
+  body{font-family:'Inter',sans-serif;background:transparent;color:var(--off);line-height:1.6;overflow-x:hidden;}
+  h1,h2,h3,.display{font-family:'Sora',sans-serif;font-weight:700;letter-spacing:-0.01em;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  a{text-decoration:none;color:inherit;}
+  img{display:block;max-width:100%;}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 24px;}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--amber);display:inline-flex;align-items:center;gap:8px;}
+  .eyebrow::before{content:"";width:7px;height:7px;background:var(--amber);border-radius:50%;}
+
+  /* Header */
+  header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,15,18,0.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;height:76px;}
+  .brand{display:flex;align-items:center;gap:11px;}
+  .brand .mark{width:38px;height:38px;border-radius:50%;object-fit:contain;flex-shrink:0;}
+  .brand-name{font-family:'Sora',sans-serif;font-weight:700;font-size:1.05rem;letter-spacing:0.01em;}
+  .brand-name .dim{color:var(--off-dim);font-weight:500;}
+  nav ul{list-style:none;display:flex;gap:32px;}
+  nav a{font-size:0.87rem;font-weight:500;color:var(--off-dim);}
+  nav a:hover{color:var(--off);}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:8px;font-size:0.85rem;font-weight:600;transition:all .2s ease;}
+  .btn-amber{background:var(--amber);color:var(--ink);}
+  .btn-amber:hover{background:#ffc350;}
+  .btn-outline{border:1px solid var(--line);color:var(--off);}
+  .btn-outline:hover{border-color:var(--amber);color:var(--amber);}
+  .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;}
+  .burger span{width:22px;height:2px;background:var(--off);}
+
+  /* Hero */
+  .hero{padding:160px 0 90px;position:relative;overflow:hidden;}
+  #beams-canvas{position:fixed;inset:0;z-index:-1;filter:blur(15px);pointer-events:none;}
+  .hero::before{
+    content:"";position:absolute;top:-100px;right:-140px;width:480px;height:480px;
+    background:radial-gradient(circle, rgba(255,176,32,0.14), transparent 70%);
+    pointer-events:none;z-index:0;
+  }
+  .hero-inner{position:relative;z-index:1;max-width:760px;}
+  .hero h1{font-size:clamp(2.3rem,5.6vw,3.9rem);line-height:1.08;margin-top:18px;}
+  .hero h1 .amber{color:var(--amber);}
+  .hero p{margin-top:22px;max-width:560px;color:var(--off-dim);font-size:1.08rem;}
+  .hero-actions{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap;}
+  .trust-strip{margin-top:56px;padding-top:28px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;}
+  .trust-pill{font-family:'JetBrains Mono',monospace;font-size:0.74rem;color:var(--off-dim);background:var(--surface);border:1px solid var(--line);padding:7px 14px;border-radius:100px;}
+
+  /* Intro loader / welcome overlay */
+  body.intro-active{overflow:hidden;}
+  .intro-overlay{
+    position:fixed;inset:0;z-index:999;background:var(--ink);
+    display:flex;align-items:center;justify-content:center;flex-direction:column;
+    transition:opacity .6s ease;
+  }
+  .intro-overlay.hide{opacity:0;pointer-events:none;}
+  .loader {
+    width: 84px;
+    aspect-ratio: 1;
+    background:
+      linear-gradient(#ff4500 0 0) left/50% 100% no-repeat,
+      conic-gradient(
+        from -90deg at 32px 9.47px,
+        #fff8dc 135deg,
+        #8b0000 0 270deg,
+        #ffa500 0
+      );
+    background-blend-mode: multiply;
+    -webkit-mask: linear-gradient(to bottom right, #0000 8px, #000 0 52px, #0000 0),
+      conic-gradient(from -90deg at right 6px bottom 6px, #000 90deg, #0000 0);
+    mask: linear-gradient(to bottom right, #0000 8px, #000 0 52px, #0000 0),
+      conic-gradient(from -90deg at right 6px bottom 6px, #000 90deg, #0000 0);
+    background-size: 50% 50%;
+    -webkit-mask-size: 50% 50%;
+    mask-size: 50% 50%;
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+    animation: l9 1.8s infinite cubic-bezier(0.5, 0.2, 0.5, 1);
+    box-shadow: 0 0 15px rgba(255, 69, 0, 0.6);
+    transform: perspective(1000px) rotateY(15deg);
+  }
+  @keyframes l9 {
+    0% { background-position: 0% 0%, 0 0; transform: perspective(1000px) rotateY(15deg) scale(1); box-shadow: 0 0 15px rgba(255, 69, 0, 0.6); }
+    25% { background-position: 100% 0%, 0 0; }
+    50% { background-position: 100% 100%, 0 0; transform: perspective(1000px) rotateY(15deg) scale(1.08); box-shadow: 0 0 25px rgba(255, 69, 0, 0.8); }
+    75% { background-position: 0% 100%, 0 0; }
+    100% { background-position: 0% 0%, 0 0; transform: perspective(1000px) rotateY(15deg) scale(1); box-shadow: 0 0 15px rgba(255, 69, 0, 0.6); }
+  }
+  .intro-welcome{display:none;flex-direction:column;align-items:center;gap:14px;opacity:0;transition:opacity .5s ease;}
+  .intro-welcome.show{display:flex;opacity:1;}
+  .intro-welcome img{width:56px;height:56px;border-radius:50%;object-fit:contain;}
+  .intro-welcome p{font-family:'Sora',sans-serif;font-weight:600;color:var(--off);font-size:1.15rem;letter-spacing:0.01em;}
+  .intro-welcome span{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--off-dim);letter-spacing:0.08em;text-transform:uppercase;margin-top:-4px;}
+
+  /* Ratings ticker */
+  .ticker-wrap{position:fixed;left:0;right:0;bottom:0;z-index:90;background:var(--amber);overflow:hidden;padding:12px 0;box-shadow:0 -4px 20px rgba(0,0,0,0.25);}
+  .ticker-track{display:inline-flex;gap:44px;white-space:nowrap;animation:ticker-scroll 24s linear infinite;}
+  .ticker-track span{font-family:'Sora',sans-serif;font-weight:700;font-size:0.82rem;color:var(--ink);display:inline-flex;align-items:center;gap:44px;}
+  .ticker-track span .sep{opacity:0.5;font-weight:400;}
+  body{padding-bottom:44px;}
+  @keyframes ticker-scroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+  section{padding:90px 0;}
+
+  /* Scroll fade-in */
+  .section-head,.about-card,.skills-col,.why-item,.service-card,.proj-card,.contact .wrap{
+    opacity:0;transform:translateY(26px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .section-head.in-view,.about-card.in-view,.skills-col.in-view,.why-item.in-view,.service-card.in-view,.proj-card.in-view,.contact .wrap.in-view{
+    opacity:1;transform:translateY(0);
+  }
+  .section-head{max-width:620px;margin-bottom:52px;}
+  .section-head h2{font-size:clamp(1.8rem,3.8vw,2.5rem);margin-top:12px;}
+  .section-head p{margin-top:14px;color:var(--off-dim);}
+
+  /* About card */
+  .about{background:rgba(22,24,29,0.72);backdrop-filter:blur(10px);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .about-card{display:flex;gap:44px;align-items:center;flex-wrap:wrap;}
+  .about-photo{flex:0 0 220px;}
+  .about-photo img{width:220px;height:220px;object-fit:cover;border-radius:16px;border:1px solid var(--line);}
+  .about-copy{flex:1;min-width:280px;}
+  .about-copy p{margin-top:16px;color:var(--off-dim);}
+  .stat-row{display:flex;flex-wrap:wrap;gap:36px;margin-top:26px;}
+  .stat .n{font-family:'Sora',sans-serif;font-size:1.7rem;font-weight:700;color:var(--amber);}
+  .stat .l{font-family:'JetBrains Mono',monospace;font-size:0.68rem;text-transform:uppercase;color:var(--off-dim);letter-spacing:0.05em;margin-top:2px;}
+
+  /* Skills & Tools */
+  .skills{background:rgba(22,24,29,0.72);backdrop-filter:blur(10px);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:34px;}
+  .skills-col h4{font-family:'JetBrains Mono',monospace;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--amber);margin-bottom:14px;}
+  .skills-col ul{list-style:none;}
+  .skills-col li{font-size:0.92rem;color:var(--off-dim);padding:8px 0;border-bottom:1px solid var(--line);}
+  .skills-col li:last-child{border-bottom:none;}
+
+  /* Why work with me */
+  .why-list{display:flex;flex-direction:column;}
+  .why-item{display:flex;gap:24px;padding:28px 0;border-top:1px solid var(--line);}
+  .why-item:last-child{border-bottom:1px solid var(--line);}
+  .why-item .idx{font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--amber);width:32px;flex-shrink:0;padding-top:2px;}
+  .why-item h3{font-size:1.08rem;}
+  .why-item p{font-size:0.9rem;color:var(--off-dim);margin-top:6px;max-width:520px;}
+
+  /* Services */
+  .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;}
+  .service-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:26px;transition:border-color .2s ease;}
+  .service-card:hover{border-color:rgba(255,176,32,0.4);}
+  .service-card .tag{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--amber);text-transform:uppercase;letter-spacing:0.05em;}
+  .service-card h3{font-size:1.15rem;margin-top:10px;}
+  .service-card p{font-size:0.88rem;color:var(--off-dim);margin-top:8px;}
+
+  /* Featured work */
+  .work-group{margin-bottom:50px;}
+  .work-group-label{font-family:'JetBrains Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--off-dim);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--line);}
+  .proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;}
+  .proj-card{
+    background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;
+    transition:transform .2s ease, border-color .2s ease;display:flex;flex-direction:column;
+  }
+  .proj-card:hover{transform:translateY(-3px);border-color:rgba(255,176,32,0.4);}
+  .proj-swatch{height:140px;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:14px 18px;}
+  .proj-swatch img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;}
+  .proj-swatch .scrim{position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,0.6) 100%);}
+  .proj-swatch .glyph{position:relative;z-index:2;position:absolute;top:14px;right:16px;font-family:'Sora',sans-serif;font-weight:700;font-size:0.75rem;color:rgba(255,255,255,0.9);background:rgba(0,0,0,0.35);padding:4px 9px;border-radius:6px;}
+  .proj-swatch .loc{position:relative;z-index:2;font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:rgba(255,255,255,0.95);}
+  .proj-body{padding:18px;flex:1;display:flex;flex-direction:column;}
+  .proj-body h4{font-size:1.05rem;}
+  .proj-body .tagline{font-size:0.82rem;color:var(--off-dim);margin-top:6px;flex:1;}
+  .proj-footer{display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding-top:14px;border-top:1px solid var(--line);}
+  .proj-footer .stack{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--off-dim);}
+  .proj-footer .view{font-size:0.82rem;font-weight:600;color:var(--amber);}
+
+  /* Contact / socials */
+  .contact{background:rgba(22,24,29,0.72);backdrop-filter:blur(10px);border-top:1px solid var(--line);text-align:center;}
+  .contact h2{font-size:clamp(1.9rem,4.2vw,2.8rem);max-width:640px;margin:0 auto;}
+  .contact p{margin-top:16px;color:var(--off-dim);max-width:480px;margin-left:auto;margin-right:auto;}
+  .contact .hero-actions{justify-content:center;margin-top:30px;}
+  .social-row{display:flex;justify-content:center;flex-wrap:wrap;gap:26px;margin-top:38px;}
+  .glow-button {
+    position: relative;
+    width: 120px;
+    height: 40px;
+    background-color: #000;
+    display: flex;
+    align-items: center;
+    color: white;
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    font-size:0.82rem;
+    flex-direction: column;
+    justify-content: center;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .glow-button::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    left: -4px;
+    top: -1px;
+    margin: auto;
+    width: 128px;
+    height: 48px;
+    border-radius: 10px;
+    background: linear-gradient(-45deg, #e81cff 0%, #40c9ff 100%);
+    z-index: -10;
+    pointer-events: none;
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .glow-button::after {
+    content: "";
+    z-index: -1;
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(-45deg, #fc00ff 0%, #00dbde 100%);
+    transform: translate3d(0, 0, 0) scale(0.95);
+    filter: blur(20px);
+  }
+  .glow-button:hover::after { filter: blur(30px); }
+  .glow-button:hover::before { transform: rotate(-180deg); }
+  .glow-button:active::before { scale: 0.7; }
+
+  footer{padding:50px 0 28px;}
+  .footer-row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:0.8rem;color:var(--off-dim);border-top:1px solid var(--line);padding-top:26px;}
+  .footer-row a{color:var(--off-dim);}
+  .footer-row a:hover{color:var(--amber);}
+
+  @media (max-width:860px){
+    nav ul,header .btn{display:none;}
+    .burger{display:flex;}
+    section{padding:64px 0;}
+  }
+</style>
+</head>
+<body>
+
+<div id="intro-loader" class="intro-overlay">
+  <div class="loader"></div>
+  <div class="intro-welcome">
+    <img src="https://res.cloudinary.com/drdrwbdkp/image/upload/v1787494646/file_00000000f5b881f7ae73f9618ea5ae58_nqmlm8.png" alt="YUSUF TECH logo">
+    <p>Welcome to YUSUF TECH</p>
+    <span>Loading your experience</span>
+  </div>
+</div>
+
+<canvas id="beams-canvas"></canvas>
+
+<header>
+  <div class="wrap">
+    <a href="#top" class="brand">
+      <img class="mark" src="https://res.cloudinary.com/drdrwbdkp/image/upload/v1787494646/file_00000000f5b881f7ae73f9618ea5ae58_nqmlm8.png" alt="YUSUF TECH logo">
+      <div class="brand-name">YUSUF<span class="dim">·</span>TECH</div>
+    </a>
+    <nav><ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#why">Why Me</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul></nav>
+    <a href="#contact" class="btn btn-amber">Start a Project</a>
+    <button class="burger" aria-label="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<div id="top" class="hero">
+  <div class="wrap hero-inner">
+    <span class="eyebrow">Web Developer for Businesses &amp; Professionals</span>
+    <h1>A website that makes your business look like it's <span class="amber">already made it.</span></h1>
+    <p>From a neighbourhood café's menu page to a law firm's practice site to a full school website — I design, build, and deploy professional websites for real businesses. Clean, fast, mobile-first, and live on a real domain.</p>
+    <div class="hero-actions">
+      <a href="#work" class="btn btn-amber">See My Work</a>
+      <a href="#contact" class="btn btn-outline">Get a Website for My Business</a>
+    </div>
+    <div class="trust-strip">
+      <div class="trust-pill">Cafés &amp; Restaurants</div>
+      <div class="trust-pill">Laundry &amp; Service Businesses</div>
+      <div class="trust-pill">Law Firms</div>
+      <div class="trust-pill">Real Estate</div>
+      <div class="trust-pill">Schools</div>
+      <div class="trust-pill">Personal Portfolios</div>
+    </div>
+  </div>
+</div>
+
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="about-card">
+      <div class="about-photo">
+        <img src="https://res.cloudinary.com/drdrwbdkp/image/upload/v1787495010/file_00000000dad88210a5a0e6c071fcae65_eofdjw.png" alt="Yusuf, founder and developer at YUSUF TECH">
+      </div>
+      <div class="about-copy">
+        <span class="eyebrow">The Story</span>
+        <h2 style="margin-top:10px;font-size:1.6rem;">The Developer Behind the Work</h2>
+        <p><strong style="color:var(--off);">Hi, I'm Yusuf.</strong> I started building websites because I saw too many great ideas being held back by poor online presence. A strong product, business, or project deserves a website that inspires confidence from the moment someone lands on it.</p>
+        <p>Today, I work with startups, businesses, and personal brands to create modern, high-performance websites that look professional, communicate value clearly, and help convert visitors into customers, users, or supporters. My approach combines clean design, fast development, and attention to detail — whether it's a landing page, portfolio, business website, or full web platform, the goal is always the same: a digital experience that helps my clients stand out and grow.</p>
+        <div class="stat-row">
+          <div class="stat"><div class="n">5.0</div><div class="l">Avg Rating</div></div>
+          <div class="stat"><div class="n">50+</div><div class="l">Happy Clients</div></div>
+          <div class="stat"><div class="n">24h</div><div class="l">Avg Delivery</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="skills" id="skills">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Capabilities</span>
+      <h2>Skills &amp; Tools</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skills-col">
+        <h4>Technical</h4>
+        <ul>
+          <li>Frontend Development</li>
+          <li>Backend Development</li>
+          <li>Web3 / Blockchain</li>
+          <li>Problem Solving</li>
+        </ul>
+      </div>
+      <div class="skills-col">
+        <h4>Frameworks</h4>
+        <ul>
+          <li>React &amp; Next.js</li>
+          <li>Node.js &amp; Express</li>
+        </ul>
+      </div>
+      <div class="skills-col">
+        <h4>Tools</h4>
+        <ul>
+          <li>Git / GitHub</li>
+          <li>VS Code</li>
+          <li>Chrome DevTools</li>
+        </ul>
+      </div>
+      <div class="skills-col">
+        <h4>Deployment</h4>
+        <ul>
+          <li>Netlify / Vercel</li>
+          <li>GitHub Pages &amp; Actions</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="why">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">The Difference</span>
+      <h2>Why Work With Me?</h2>
+    </div>
+    <div class="why-list">
+      <div class="why-item">
+        <div class="idx">01</div>
+        <div><h3>Fast Communication</h3><p>You'll never be left wondering. I respond quickly, keep you updated throughout the build, and make sure nothing gets lost in translation.</p></div>
+      </div>
+      <div class="why-item">
+        <div class="idx">02</div>
+        <div><h3>Attention to Detail</h3><p>Every pixel, interaction, and line of code is intentional. I sweat the small stuff so the final product feels polished, not rushed.</p></div>
+      </div>
+      <div class="why-item">
+        <div class="idx">03</div>
+        <div><h3>Modern Design Standards</h3><p>Clean layouts, strong typography, purposeful colour — built to impress users and set your project apart from the competition.</p></div>
+      </div>
+      <div class="why-item">
+        <div class="idx">04</div>
+        <div><h3>Performance-Focused</h3><p>Fast-loading, optimised code that scores high on Core Web Vitals. A slower site loses visitors — mine don't.</p></div>
+      </div>
+      <div class="why-item">
+        <div class="idx">05</div>
+        <div><h3>Range Across Industries</h3><p>From cafés and law firms to schools and Web3 platforms — I adapt design and structure to what actually fits the brand, not a single template.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Who I Build For</span>
+      <h2>Every business is different. The website shouldn't look like it wasn't.</h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="tag">Local &amp; Service</div>
+        <h3>Cafés, Laundries &amp; Everyday Businesses</h3>
+        <p>Menus, service lists, location maps, and contact forms that actually work on a phone.</p>
+      </div>
+      <div class="service-card">
+        <div class="tag">Professional Services</div>
+        <h3>Law Firms &amp; Consultancies</h3>
+        <p>Credibility-first sites — clear practice areas and a consultation flow that doesn't bury the CTA.</p>
+      </div>
+      <div class="service-card">
+        <div class="tag">Property</div>
+        <h3>Real Estate &amp; Listings</h3>
+        <p>Photo-forward listings, agent profiles, and inquiry forms wired to go somewhere real.</p>
+      </div>
+      <div class="service-card">
+        <div class="tag">Academic</div>
+        <h3>Schools &amp; Institutions</h3>
+        <p>Real design identity per school — not the same bordered template every academic site shares.</p>
+      </div>
+      <div class="service-card">
+        <div class="tag">Personal Brand</div>
+        <h3>Portfolios</h3>
+        <p>For consultants, creatives, and freelancers who need a site that reads as a credential.</p>
+      </div>
+      <div class="service-card">
+        <div class="tag">On Request</div>
+        <h3>Bots &amp; Web3</h3>
+        <p>Telegram bots wired to payment APIs, token deployment, and NFT collections when the project calls for it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work" style="background:rgba(22,24,29,0.72);backdrop-filter:blur(10px);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Featured Work</span>
+      <h2>Ten live sites, five industries, zero repeated templates</h2>
+      <p>Every project below is a real, working site — click through to see it live.</p>
+    </div>
+
+    <div class="work-group">
+      <div class="work-group-label">Academic &amp; Schools</div>
+      <div class="proj-grid">
+        <a class="proj-card" href="https://yusufking-dev.github.io/Royalcrestcollege/" target="_blank" rel="noopener">
+          <div class="proj-swatch" style="background:linear-gradient(135deg,#0f1e3d,#1b2f57);"><img src="https://api.microlink.io/?url=https%3A%2F%2Fyusufking-dev.github.io%2FRoyalcrestcollege%2F&screenshot=true&meta=false&embed=screenshot.url&type=jpeg&waitUntil=networkidle2&ttl=604800" alt="" loading="lazy" onerror="this.remove()"><div class="scrim"></div><span class="glyph">RC</span><span class="loc">Lagos</span></div>
+          <div class="proj-body">
+            <h4>Royal Crest College</h4>
+            <p class="tagline">A navy-and-gold boarding secondary school built to feel decades-established.</p>
+            <div class="proj-footer"><span class="stack mono">HTML · CSS · JS</span><span class="view">View Live →</span></div>
+          </div>
+        </a>
+        <a class="proj-card" href="https://yusufking-dev.github.io/Littlesprouts/" target="_blank" rel="noopener">
+          <div class="proj-swatch" style="background:linear-gradient(135deg,#e4703c,#4c7a54);"><img src="https://api.microlink.io/?url=https%3A%2F%2Fyusufking-dev.github.io%2FLittlesprouts%2F&screenshot=true&meta=false&embed=screenshot.url&type=jpeg&waitUntil=networkidle2&ttl=604800" alt="" loading="lazy" onerror="this.remove()"><div class="scrim"></div><span class="glyph">LS</span><span class="loc">Enugu</span></div>
+          <div class="proj-body">
+            <h4>Little Sprouts Nursery &amp; Primary</h4>
+            <p class="tagline">A warm, playful nursery school site with organic shapes and a speech-bubble schedule.</p>
+            <div class="proj-footer"><span class="stack mono">HTML · CSS · JS</span><span class="view">View Live →</span></div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="work-group">
+      <div class="work-group-label">Cafés &amp; Food</div>
+      <div class="proj-grid">
+        <a class="proj-card" href="https://yusufking-dev.github.io/Cafekurukuru/" target="_blank" rel="noopener">
+          <div class="proj-swatch" style="background:linear-gradient(135deg,#3a2416,#6b4226);"><img src="https://api.microlink.io/?url=https%3A%2F%2Fyusufking-dev.github.io%2FCafekurukuru%2F&screenshot=true&meta=false&embed=screenshot.url&type=jpeg&waitUntil=networkidle2&ttl=604800" alt="" loading="lazy" onerror="this.remove()"><div class="scrim"></div><span class="glyph">KK</span><span class="loc">Yaba, Lagos</span></div>
+          <div class="proj-body">
+            <h4>Kúrú Kúrú Coffee House</h4>
+            <p class="tagline">A specialty third-wave coffee roaster site across three Lagos branches.</p>
+            <div class="proj-footer"><span class="stack mono">HTML · CSS · JS</span><span class="view">View Live →</span></div>
+          </div>
+        </a>
+        <a class="proj-card" href="https://yusufking-dev.github.io/Cafenaija/" target="_blank" rel="noopener">
+          <div class="proj-swatch" style="background:linear-gradient(135deg,#d9481d,#f4b942);"><img src="https://api.microlink.io/?url=https%3A%2F%2Fyusufking-dev.github.io%2FCafenaija%2F&screenshot=true&meta=false&embed=screenshot.url&type=jpeg&waitUntil=networkidle2&ttl=604800" alt="" loading="lazy" onerror="this.remove()"><div class="scrim"></div><span class="glyph">NB</span><span class="loc">Wuse 2, Abuja</span></div>
+          <div class="proj-body">
+            <h4>Naija Brew Café</h4>
+            <p class="tagline">A high-energy café site built around live-band Fridays and street-food flavour.</p>
+            <div class="proj-footer"><span class="stack mono">HTML · CSS · JS</span><span class="view">View Live →</span></div>
+          </div>
+        </a>
+        <a class="proj-card" href="https://yusufking-dev.github.io/Chai-Puff/" target="_blank" rel="noopener">
+          <div class="proj-swatch" style="background:linear-gradient(135deg,#6e1423,#8a3324);"><img src="https://api.microlink.io/?url=https%3A%2F%2Fyusufking-dev.github.io%2FChai-Puff%2F&screenshot=true&meta=false&embed=screenshot.url&type=jpeg&waitUntil=networkidle2&ttl=604800" alt="" loading="lazy" onerror="this.remove()"><div class="scrim"></div><span class="glyph">CP</span><span class="loc">Enugu</span></div>
+          <div class="proj-body">
+            <h4>Chai &amp; Puff Lounge</h4>
+            <p class="tagline">A three-generation traditional Nigerian tea lounge, built around nostalgia and heritage.</p>
+            <div class="proj-footer"><span class="stack mono">HTML · CSS · JS</span><span class="view">View Live →</span></div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="work-group">
+      <div class="work-group-label">Laundry &amp; Garment Care</div>
+      <div class="proj-grid">
+        <a class="proj-card" href="https://yusufking-dev.github.io/Sparklewash/" target="_blank" rel="noopener">
+          <div class="proj-swatch" style="background:linear-gradient(135deg,#0e6ba8,#5fa8d3);"><img src="https://api.microlink.io/?url=https%3A%2F%2Fyusufking-dev.github.io%2FSparklewash%2F&screenshot=true&meta=false&embed=screenshot.url&type=jpeg&waitUntil=networkidle2&ttl=604800" alt="" loading="lazy" onerror="this.remove()"><div class="scrim"></div><span class="glyph">SW</span><span class="loc">Surulere, Lagos</span></div>
+          <div class="proj-body">
+            <h4>SparkleWash Laundromat</h4>
+            <p class="tagline">An on-demand pickup-and-deliver laundry site built to feel like an app.</p>
+            <div class="proj-footer"><span class="stack mono">HTML · CSS · JS</span><span class="view">View Live →</span></div>
+          </div>
+        </a>
+        <a class="proj-card" href="https://yusufking-dev.github.io/Quickpress/" target="_blank" rel="noopener">
+          <div class="proj-swatch" style="background:linear-gradient(135deg,#1d2027,#3a3f4a);"><img src="https://api.microlink.io/?url=https%3A%2F%2Fyusufking-dev.github.io%2FQuickpress%2F&screenshot=true&meta=false&embed=screenshot.url&type=jpeg&waitUntil=networkidle2&ttl=604800" alt="" loading="lazy" onerror="this.remove()"><div class="scrim"></div><span class="glyph">QP</span><span class="loc">GRA, Port Harcourt</span></div>
+          <div class="proj-body">
+            <h4>QuickPress Dry Cleaners</h4>
+            <p class="tagline">A premium garment-care site built for a professional, courtroom-ready clientele.</p>
+            <div class="proj-footer"><span class="stack mono">HTML · CSS · JS</span><span class="view">View Live →</span></div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="work-group">
+      <div class="work-group-label">Real Estate</div>
+      <div class="proj-grid">
+        <a class="proj-card" href="https://yusufking-dev.github.io/Emeraldcoast/" target="_blank" rel="noopener">
+          <div class="proj-swatch" style="background:linear-gradient(135deg,#0b4f4a,#1f7a70);"><img src="https://api.microlink.io/?url=https%3A%2F%2Fyusufking-dev.github.io%2FEmeraldcoast%2F&screenshot=true&meta=false&embed=screenshot.url&type=jpeg&waitUntil=networkidle2&ttl=604800" alt="" loading="lazy" onerror="this.remove()"><div class="scrim"></div><span class="glyph">EC</span><span class="loc">Lekki, Lagos</span></div>
+          <div class="proj-body">
+            <h4>Emerald Coast Realty</h4>
+            <p class="tagline">Curated luxury waterfront listings with a location/type/budget filter.</p>
+            <div class="proj-footer"><span class="stack mono">HTML · CSS · JS</span><span class="view">View Live →</span></div>
+          </div>
+        </a>
+        <a class="proj-card" href="https://yusufking-dev.github.io/AbujaPrime/" target="_blank" rel="noopener">
+          <div class="proj-swatch" style="background:linear-gradient(135deg,#4a3423,#7a5a3a);"><img src="https://api.microlink.io/?url=https%3A%2F%2Fyusufking-dev.github.io%2FAbujaPrime%2F&screenshot=true&meta=false&embed=screenshot.url&type=jpeg&waitUntil=networkidle2&ttl=604800" alt="" loading="lazy" onerror="this.remove()"><div class="scrim"></div><span class="glyph">AP</span><span class="loc">Jabi, Abuja</span></div>
+          <div class="proj-body">
+            <h4>Abuja Prime Properties</h4>
+            <p class="tagline">Verified land and estate development, built to remove buyer fraud-anxiety.</p>
+            <div class="proj-footer"><span class="stack mono">HTML · CSS · JS</span><span class="view">View Live →</span></div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="work-group" style="margin-bottom:0;">
+      <div class="work-group-label">Professional Services</div>
+      <div class="proj-grid">
+        <a class="proj-card" href="https://yusufking-dev.github.io/Okonkwolp/" target="_blank" rel="noopener">
+          <div class="proj-swatch" style="background:linear-gradient(135deg,#1a2340,#2e3d6b);"><img src="https://api.microlink.io/?url=https%3A%2F%2Fyusufking-dev.github.io%2FOkonkwolp%2F&screenshot=true&meta=false&embed=screenshot.url&type=jpeg&waitUntil=networkidle2&ttl=604800" alt="" loading="lazy" onerror="this.remove()"><div class="scrim"></div><span class="glyph">OU</span><span class="loc">CBD, Abuja</span></div>
+          <div class="proj-body">
+            <h4>Okonkwo Ubah LP</h4>
+            <p class="tagline">A commercial law firm site built to close credibility gaps fast, with real deal numbers.</p>
+            <div class="proj-footer"><span class="stack mono">HTML · CSS · JS</span><span class="view">View Live →</span></div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <span class="eyebrow" style="justify-content:center;">Let's Build</span>
+    <h2 style="margin-top:14px;">Tell me what you run. I'll tell you what it needs.</h2>
+    <p>Café, laundry, law firm, agency, school, or your own name — if it needs a website that actually represents it, that's what I build.</p>
+    <div class="hero-actions">
+      <a href="https://wa.me/qr/57ML75QJH6BYF1" class="btn btn-amber" target="_blank" rel="noopener">Message on WhatsApp</a>
+      <a href="https://t.me/YusufKing_0x7" class="btn btn-outline" target="_blank" rel="noopener">Message on Telegram</a>
+    </div>
+    <div class="social-row">
+      <a class="glow-button" href="https://github.com/YusufKing-dev" target="_blank" rel="noopener">GitHub</a>
+      <a class="glow-button" href="https://x.com/YusufKing_0x7" target="_blank" rel="noopener">X</a>
+      <a class="glow-button" href="https://t.me/YusufKing_0x7" target="_blank" rel="noopener">Telegram</a>
+      <a class="glow-button" href="https://wa.me/qr/57ML75QJH6BYF1" target="_blank" rel="noopener">WhatsApp</a>
+      <a class="glow-button" href="https://discord.gg/fTkcwHZx" target="_blank" rel="noopener">Discord</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-row">
+      <div>© 2026 YUSUF TECH. All rights reserved.</div>
+      <div><a href="https://github.com/YusufKing-dev">github.com/YusufKing-dev</a></div>
+    </div>
+  </div>
+</footer>
+
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <span>5.0 ★★★★★ Avg Rating<span class="sep">✦</span></span>
+    <span>50+ Happy Clients<span class="sep">✦</span></span>
+    <span>100x Highest ROI<span class="sep">✦</span></span>
+    <span>24h Avg Delivery<span class="sep">✦</span></span>
+    <span>5.0 ★★★★★ Avg Rating<span class="sep">✦</span></span>
+    <span>50+ Happy Clients<span class="sep">✦</span></span>
+    <span>100x Highest ROI<span class="sep">✦</span></span>
+    <span>24h Avg Delivery<span class="sep">✦</span></span>
+  </div>
+</div>
+
+<script>
+  // Intro loader → welcome → reveal sequence
+  document.body.classList.add('intro-active');
+  (function(){
+    var overlay = document.getElementById('intro-loader');
+    var loaderEl = overlay.querySelector('.loader');
+    var welcomeEl = overlay.querySelector('.intro-welcome');
+    setTimeout(function(){
+      loaderEl.style.display = 'none';
+      welcomeEl.classList.add('show');
+    }, 1800);
+    setTimeout(function(){
+      overlay.classList.add('hide');
+      document.body.classList.remove('intro-active');
+    }, 3300);
+    setTimeout(function(){
+      overlay.remove();
+    }, 3900);
+  })();
+</script>
+
+<script>
+  // Animated beams background — hero section only
+  (function(){
+    var canvas = document.getElementById('beams-canvas');
+    if(!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var beams = [];
+    var MINIMUM_BEAMS = 16;
+
+    function createBeam(width, height){
+      var angle = -35 + Math.random() * 10;
+      return {
+        x: Math.random() * width * 1.5 - width * 0.25,
+        y: Math.random() * height * 1.5 - height * 0.25,
+        width: 30 + Math.random() * 60,
+        length: height * 2.5,
+        angle: angle,
+        speed: 0.6 + Math.random() * 1.2,
+        opacity: 0.1 + Math.random() * 0.14,
+        hue: 30 + Math.random() * 25,
+        pulse: Math.random() * Math.PI * 2,
+        pulseSpeed: 0.02 + Math.random() * 0.03
+      };
+    }
+
+    function resetBeam(beam, index, total){
+      beam.y = canvas.height + 100;
+      var column = index % 3;
+      var spacing = canvas.width / 3;
+      beam.x = column * spacing + spacing / 2 + (Math.random() - 0.5) * spacing * 0.5;
+      beam.width = 100 + Math.random() * 100;
+      beam.speed = 0.5 + Math.random() * 0.4;
+      beam.hue = 30 + (index * 25) / total;
+      beam.opacity = 0.14 + Math.random() * 0.08;
+      return beam;
+    }
+
+    function updateSize(){
+      var dpr = window.devicePixelRatio || 1;
+      var w = window.innerWidth;
+      var h = window.innerHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(dpr, dpr);
+      beams = Array.from({ length: MINIMUM_BEAMS }, function(){ return createBeam(canvas.width, canvas.height); });
+    }
+
+    function drawBeam(beam){
+      ctx.save();
+      ctx.translate(beam.x, beam.y);
+      ctx.rotate((beam.angle * Math.PI) / 180);
+      var pulsingOpacity = beam.opacity * (0.8 + Math.sin(beam.pulse) * 0.2);
+      var gradient = ctx.createLinearGradient(0, 0, 0, beam.length);
+      gradient.addColorStop(0, 'hsla(' + beam.hue + ',85%,60%,0)');
+      gradient.addColorStop(0.1, 'hsla(' + beam.hue + ',85%,60%,' + (pulsingOpacity * 0.5) + ')');
+      gradient.addColorStop(0.4, 'hsla(' + beam.hue + ',85%,60%,' + pulsingOpacity + ')');
+      gradient.addColorStop(0.6, 'hsla(' + beam.hue + ',85%,60%,' + pulsingOpacity + ')');
+      gradient.addColorStop(0.9, 'hsla(' + beam.hue + ',85%,60%,' + (pulsingOpacity * 0.5) + ')');
+      gradient.addColorStop(1, 'hsla(' + beam.hue + ',85%,60%,0)');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(-beam.width / 2, 0, beam.width, beam.length);
+      ctx.restore();
+    }
+
+    function animate(){
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.filter = 'blur(30px)';
+      var total = beams.length;
+      beams.forEach(function(beam, i){
+        beam.y -= beam.speed;
+        beam.pulse += beam.pulseSpeed;
+        if(beam.y + beam.length < -100){ resetBeam(beam, i, total); }
+        drawBeam(beam);
+      });
+      requestAnimationFrame(animate);
+    }
+
+    updateSize();
+    window.addEventListener('resize', updateSize);
+    animate();
+  })();
+</script>
+
+<script>
+  // Fade in on scroll
+  (function(){
+    var targets = document.querySelectorAll('.section-head,.about-card,.skills-col,.why-item,.service-card,.proj-card,.contact .wrap');
+    if(!('IntersectionObserver' in window)){
+      targets.forEach(function(el){ el.classList.add('in-view'); });
+      return;
+    }
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    targets.forEach(function(el){ observer.observe(el); });
+  })();
+</script>
+
+<script>
+  document.querySelector('.burger').addEventListener('click', function(){
+    const nav = document.querySelector('nav ul');
+    const show = nav.style.display === 'flex';
+    nav.style.display = show ? 'none' : 'flex';
+    nav.style.flexDirection='column';nav.style.position='fixed';nav.style.top='76px';
+    nav.style.left='0';nav.style.right='0';nav.style.background='#0d0f12';
+    nav.style.padding='20px 24px';nav.style.gap='16px';nav.style.borderBottom='1px solid rgba(242,241,236,0.09)';
+  });
+</script>
+</body>
+</html>
