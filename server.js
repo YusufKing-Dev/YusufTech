@@ -53,6 +53,9 @@ app.use(express.static(path.join(__dirname, "public"), { maxAge: "7d" }));
 
 app.get("/", (req, res) => res.render("index", { site, icon }));
 
+app.get("/robots.txt", (req, res) => res.type("text/plain").send(`User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /demos/\n\nSitemap: ${site.url}/sitemap.xml\n`));
+app.get("/sitemap.xml", (req, res) => res.type("application/xml").send(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>${site.url}/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>\n</urlset>\n`));
+
 const limiter = rateLimit({ windowMs: 15 * 60 * 1000, limit: 5, standardHeaders: true, legacyHeaders: false,
   message: { ok: false, error: "Too many messages. Please try again in a few minutes or use WhatsApp." } });
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -100,7 +103,7 @@ app.post("/api/contact", limiter, async (req, res) => {
   }
 });
 
-app.use((req, res) => res.redirect(302, "/"));
+app.use((req, res) => res.status(404).render("404", { site, icon }));
 
 if (require.main === module) app.listen(process.env.PORT || 3000, () => console.log("YusufTech on http://localhost:" + (process.env.PORT || 3000)));
 module.exports = app;

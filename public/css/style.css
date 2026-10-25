@@ -99,3 +99,4 @@ h2.gap{margin-top:clamp(56px,8vw,88px)}
 .faq details p{color:var(--dim);padding:0 0 20px;max-width:62ch}
 @media(max-width:900px){.grid4{grid-template-columns:1fr 1fr}}
 @media(max-width:720px){.grid4{grid-template-columns:1fr}}
+.nf{min-height:100vh;display:grid;place-items:center;text-align:center;padding:24px}.nf h1{margin:18px auto 0;font-size:clamp(1.8rem,5vw,2.6rem)}.nf .lead{margin-inline:auto}.nf .actions{justify-content:center}
