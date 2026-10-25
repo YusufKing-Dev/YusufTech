@@ -1,1 +1,101 @@
-{ "functions": { "server.js": { "includeFiles": "{views,data,lib}/**" } } }
+{
+  "functions": {
+    "server.js": {
+      "includeFiles": "{views,data,lib}/**"
+    }
+  },
+  "redirects": [
+    {
+      "source": "/demos/royalcrestcollege",
+      "destination": "/demos/royalcrestcollege/",
+      "permanent": false
+    },
+    {
+      "source": "/demos/littlesprouts",
+      "destination": "/demos/littlesprouts/",
+      "permanent": false
+    },
+    {
+      "source": "/demos/cafekurukuru",
+      "destination": "/demos/cafekurukuru/",
+      "permanent": false
+    },
+    {
+      "source": "/demos/cafenaija",
+      "destination": "/demos/cafenaija/",
+      "permanent": false
+    },
+    {
+      "source": "/demos/chai-puff",
+      "destination": "/demos/chai-puff/",
+      "permanent": false
+    },
+    {
+      "source": "/demos/sparklewash",
+      "destination": "/demos/sparklewash/",
+      "permanent": false
+    },
+    {
+      "source": "/demos/quickpress",
+      "destination": "/demos/quickpress/",
+      "permanent": false
+    },
+    {
+      "source": "/demos/emeraldcoast",
+      "destination": "/demos/emeraldcoast/",
+      "permanent": false
+    },
+    {
+      "source": "/demos/abujaprime",
+      "destination": "/demos/abujaprime/",
+      "permanent": false
+    },
+    {
+      "source": "/demos/okonkwolp",
+      "destination": "/demos/okonkwolp/",
+      "permanent": false
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/demos/royalcrestcollege/:path*",
+      "destination": "https://yusufking-dev.github.io/Royalcrestcollege/:path*"
+    },
+    {
+      "source": "/demos/littlesprouts/:path*",
+      "destination": "https://yusufking-dev.github.io/Littlesprouts/:path*"
+    },
+    {
+      "source": "/demos/cafekurukuru/:path*",
+      "destination": "https://yusufking-dev.github.io/Cafekurukuru/:path*"
+    },
+    {
+      "source": "/demos/cafenaija/:path*",
+      "destination": "https://yusufking-dev.github.io/Cafenaija/:path*"
+    },
+    {
+      "source": "/demos/chai-puff/:path*",
+      "destination": "https://yusufking-dev.github.io/Chai-Puff/:path*"
+    },
+    {
+      "source": "/demos/sparklewash/:path*",
+      "destination": "https://yusufking-dev.github.io/Sparklewash/:path*"
+    },
+    {
+      "source": "/demos/quickpress/:path*",
+      "destination": "https://yusufking-dev.github.io/Quickpress/:path*"
+    },
+    {
+      "source": "/demos/emeraldcoast/:path*",
+      "destination": "https://yusufking-dev.github.io/Emeraldcoast/:path*"
+    },
+    {
+      "source": "/demos/abujaprime/:path*",
+      "destination": "https://yusufking-dev.github.io/AbujaPrime/:path*"
+    },
+    {
+      "source": "/demos/okonkwolp/:path*",
+      "destination": "https://yusufking-dev.github.io/Okonkwolp/:path*"
+    }
+  ]
+}
