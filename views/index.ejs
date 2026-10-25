@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><%= site.title %></title>
+<meta name="description" content="<%= site.description %>">
+<link rel="canonical" href="<%= site.url %>/">
+<meta name="theme-color" content="#0d0f12">
+<meta property="og:type" content="website">
+<meta property="og:title" content="YUSUF TECH — Web Developer for Businesses & Professionals">
+<meta property="og:description" content="Professional websites for cafés, laundries, law firms, real estate agencies, schools, and personal brands — designed, built, and deployed by YUSUF TECH.">
+<meta property="og:image" content="<%= site.ogImage %>">
+<meta property="og:url" content="<%= site.url %>/">
+<meta property="og:site_name" content="YUSUF TECH">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@500;600;700;800&display=swap">
+<link rel="stylesheet" href="/css/style.css">
+<script type="application/ld+json"><%- JSON.stringify({"@context":"https://schema.org","@type":"ProfessionalService","name":site.brand,"url":site.url,"description":site.description,"email":site.email,"areaServed":"Worldwide","sameAs":site.socials.filter(s=>s.url.startsWith("http")).map(s=>s.url)}).replace(/</g,"\\u003c") %></script>
+</head>
+<body id="top">
+<div class="loader-wrap" id="loader" role="status" aria-label="Loading">
+  <div class="loader"><div class="circle"></div><div class="circle"></div><div class="circle"></div><div class="circle"></div></div>
+</div>
+<noscript><style>#loader{display:none}</style></noscript>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a href="#top" class="brand">YUSUF<span>TECH</span></a>
+    <nav id="menu" aria-label="Main">
+      <a href="#about">About</a><a href="#services">Services</a><a href="#work">Work</a><a href="#skills">Skills</a><a href="#why">Why me</a><a href="#contact">Contact</a>
+    </nav>
+    <a href="#contact" class="btn btn-amber nav-cta">Start a project</a>
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="menu"><i></i><i></i></button>
+  </div>
+</header>
+
+<main>
+<section class="hero wrap">
+  <div class="hero-copy">
+    <p class="status"><span class="dot"></span>Taking new projects</p>
+    <h1>Websites that make your business look like it has already made it.</h1>
+    <p class="lead">I design, build, and deploy professional websites for real businesses, from a café menu page to a law firm's practice site to a full school website. Clean, fast, mobile-first, and live on your own domain.</p>
+    <div class="actions"><a href="#work" class="btn btn-amber">See my work</a><a href="#contact" class="btn btn-ghost">Get a website for my business</a></div>
+  </div>
+  <dl class="stats">
+    <% site.stats.forEach(s => { %><div><dt><%= s[1] %></dt><dd><%= s[0] %></dd></div><% }) %>
+  </dl>
+</section>
+<div class="wrap"><ul class="chips"><% site.industries.forEach(i => { %><li><%= i %></li><% }) %></ul></div>
+
+<section class="sec wrap split" id="about">
+  <div><h2>Hi, I'm Yusuf.</h2></div>
+  <div class="prose"><% site.about.forEach(p => { %><p><%= p %></p><% }) %></div>
+</section>
+
+<section class="sec wrap" id="services">
+  <h2>Who I build for</h2>
+  <p class="sub">Every business is different. The website shouldn't look like it isn't.</p>
+  <div class="grid3"><% site.services.forEach(s => { %><article class="card"><h3><%= s[0] %></h3><p><%= s[1] %></p></article><% }) %></div>
+</section>
+
+<section class="sec wrap" id="work">
+  <h2>Featured work</h2>
+  <p class="sub">Ten live sites across five industries. Each one is a real, working site.</p>
+  <div class="filters" role="group" aria-label="Filter projects">
+    <button class="on" data-f="all">All</button><% site.categories.forEach(c => { %><button data-f="<%= c %>"><%= c %></button><% }) %>
+  </div>
+  <div class="grid3" id="projects">
+    <% site.projects.forEach(p => { %>
+    <a class="proj" data-cat="<%= p.cat %>" href="<%= p.url %>" target="_blank" rel="noopener">
+      <span class="mono"><%= p.ini %></span>
+      <h3><%= p.name %></h3>
+      <p><%= p.desc %></p>
+      <small><%= p.city %> · <%= p.stack %></small>
+      <b>View live</b>
+    </a><% }) %>
+  </div>
+</section>
+
+<section class="sec wrap" id="skills">
+  <h2>Skills & tools</h2>
+  <div class="skills"><% site.skills.forEach(g => { %><div><h3><%= g[0] %></h3><ul><% g[1].forEach(i => { %><li><%= i %></li><% }) %></ul></div><% }) %></div>
+</section>
+
+<section class="sec wrap" id="why">
+  <h2>Why work with me</h2>
+  <div class="grid3"><% site.why.forEach(w => { %><article class="card"><h3><%= w[0] %></h3><p><%= w[1] %></p></article><% }) %></div>
+</section>
+
+<section class="sec wrap split" id="contact">
+  <div>
+    <h2>Tell me what you run. I'll tell you what it needs.</h2>
+    <p class="lead">Café, laundry, law firm, agency, school, or your own name. If it needs a website that represents it properly, that's what I build.</p>
+    <ul class="socials"><% site.socials.slice(0, 4).forEach(s => { %><li><a class="soc" href="<%= s.url %>" aria-label="<%= s.label %>" title="<%= s.label %>" <% if (s.url.startsWith("http")) { %>target="_blank" rel="noopener"<% } %>><%- icon(s.id) %></a></li><% }) %></ul>
+  </div>
+  <form id="form" class="form" novalidate>
+    <label>Name<input name="name" autocomplete="name" required minlength="2" maxlength="80"></label>
+    <label>Email<input name="email" type="email" autocomplete="email" required maxlength="120"></label>
+    <label>What do you need?<textarea name="message" rows="5" required minlength="10" maxlength="2000"></textarea></label>
+    <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <button class="btn btn-amber" type="submit">Send message</button>
+    <p id="msg" role="status" aria-live="polite"></p>
+  </form>
+</section>
+</main>
+
+<footer class="foot"><div class="wrap foot-in">
+  <p>© <%= new Date().getFullYear() %> YUSUF TECH. All rights reserved.</p>
+  <ul class="socials"><% site.socials.forEach(s => { %><li><a class="soc sm" href="<%= s.url %>" aria-label="<%= s.label %>" title="<%= s.label %>" <% if (s.url.startsWith("http")) { %>target="_blank" rel="noopener"<% } %>><%- icon(s.id) %></a></li><% }) %></ul>
+</div></footer>
+
+<a class="fab" href="<%= site.socials[0].url %>" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><%- icon("whatsapp") %></a>
+<script src="/js/main.js" defer></script>
+</body>
+</html>
