@@ -17,6 +17,7 @@ module.exports = {
     { id: "github", label: "GitHub", url: "https://github.com/YusufKing-dev" },
     { id: "x", label: "X", url: "https://x.com/YusufKing_0x7" }
   ],
+  projectTypes: ["Business website", "Portfolio", "Online store", "School or institution", "Real estate", "Restaurant or café", "Web3 / token project", "Other"],
   stats: [["5.0", "Average rating"], ["50+", "Happy clients"], ["24h", "Average delivery"]],
   industries: ["Cafés & restaurants", "Laundry & service businesses", "Law firms", "Real estate", "Schools", "Personal portfolios"],
   about: [

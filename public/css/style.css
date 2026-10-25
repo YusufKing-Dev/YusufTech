@@ -62,8 +62,8 @@ h3{font-size:1.05rem;font-weight:600;letter-spacing:-.01em}
 .soc svg{width:22px;height:22px}.soc.sm{width:42px;height:42px}.soc.sm svg{width:18px;height:18px}
 .form{display:grid;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:clamp(22px,4vw,34px)}
 .form label{display:grid;gap:8px;font-size:.9rem;font-weight:500}
-.form input,.form textarea{font:400 1rem Inter,sans-serif;color:var(--off);background:var(--ink);border:1px solid var(--line);border-radius:10px;padding:13px 14px;width:100%}
-.form input:focus,.form textarea:focus{border-color:var(--amber);outline:0}
+.form{color-scheme:dark}.form [hidden]{display:none}.form select,.form input,.form textarea{font:400 1rem Inter,sans-serif;color:var(--off);background:var(--ink);border:1px solid var(--line);border-radius:10px;padding:13px 14px;width:100%}
+.form select:focus,.form input:focus,.form textarea:focus{border-color:var(--amber);outline:0}
 .form .hp{position:absolute;left:-9999px;height:0;width:0;opacity:0}
 #msg{min-height:1.4em;font-size:.92rem}#msg.ok{color:#3ddc84}#msg.err{color:#ff7a6b}
 .foot{border-top:1px solid var(--line);padding-block:30px;color:var(--dim);font-size:.9rem}

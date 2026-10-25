@@ -101,7 +101,11 @@
   <form id="form" class="form" novalidate>
     <label>Name<input name="name" autocomplete="name" required minlength="2" maxlength="80"></label>
     <label>Email<input name="email" type="email" autocomplete="email" required maxlength="120"></label>
-    <label>What do you need?<textarea name="message" rows="5" required minlength="10" maxlength="2000"></textarea></label>
+    <label>Type of website
+      <select name="type" id="type" required><option value="" disabled selected>Choose one</option><% site.projectTypes.forEach(t => { %><option><%= t %></option><% }) %></select>
+    </label>
+    <label id="otherWrap" hidden>What kind of website?<input name="other" id="other" maxlength="80" placeholder="e.g. church, NGO, event page"></label>
+    <label>Tell me more about your project<textarea name="message" rows="5" required minlength="10" maxlength="2000" placeholder="What does your business do, what pages do you need, and when do you need it?"></textarea></label>
     <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
     <button class="btn btn-amber" type="submit">Send message</button>
     <p id="msg" role="status" aria-live="polite"></p>

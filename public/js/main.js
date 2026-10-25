@@ -27,17 +27,24 @@
     els.forEach(function (el, i) { el.classList.add("reveal"); el.style.transitionDelay = (i % 3) * 90 + "ms"; io.observe(el); });
   }
 
+  var typeSel = document.getElementById("type"), otherWrap = document.getElementById("otherWrap"), other = document.getElementById("other");
+  typeSel.addEventListener("change", function () {
+    var isOther = typeSel.value === "Other";
+    otherWrap.hidden = !isOther; other.required = isOther;
+    if (isOther) other.focus();
+  });
+
   var form = document.getElementById("form"), msg = document.getElementById("msg");
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
     var btn = form.querySelector("button"), data = Object.fromEntries(new FormData(form));
-    if (!form.checkValidity()) { msg.className = "err"; msg.textContent = "Please fill in your name, a valid email, and a message of at least 10 characters."; return; }
+    if (!form.checkValidity()) { msg.className = "err"; msg.textContent = "Please fill in your name, a valid email, the website type, and a message of at least 10 characters."; return; }
     btn.disabled = true; btn.textContent = "Sending…"; msg.className = ""; msg.textContent = "";
     try {
       var r = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
       var j = await r.json();
       if (!j.ok) throw new Error(j.error);
-      form.reset(); msg.className = "ok"; msg.textContent = "Message sent. I'll reply within 24 hours.";
+      form.reset(); otherWrap.hidden = true; msg.className = "ok"; msg.textContent = "Message sent. I'll reply within 24 hours.";
     } catch (err) {
       msg.className = "err"; msg.textContent = err.message || "Message could not be sent. Please try WhatsApp or email.";
     } finally { btn.disabled = false; btn.textContent = "Send message"; }

@@ -37,11 +37,14 @@ const limiter = rateLimit({ windowMs: 15 * 60 * 1000, limit: 5, standardHeaders:
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
 app.post("/api/contact", limiter, async (req, res) => {
-  const { name = "", email = "", message = "", website = "" } = req.body || {};
+  const { name = "", email = "", type = "", other = "", message = "", website = "" } = req.body || {};
   if (website) return res.json({ ok: true }); // honeypot: bots fill this hidden field
-  const n = String(name).trim(), e = String(email).trim(), m = String(message).trim();
+  const n = String(name).trim(), e = String(email).trim(), m = String(message).trim(), t = String(type).trim(), o = String(other).trim();
   if (n.length < 2 || n.length > 80) return res.status(400).json({ ok: false, error: "Enter your name (2–80 characters)." });
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e) || e.length > 120) return res.status(400).json({ ok: false, error: "Enter a valid email address." });
+  if (!site.projectTypes.includes(t)) return res.status(400).json({ ok: false, error: "Choose the type of website you need." });
+  if (t === "Other" && (o.length < 2 || o.length > 80)) return res.status(400).json({ ok: false, error: "Tell me what kind of website you need (2–80 characters)." });
+  const kind = t === "Other" ? `Other: ${o}` : t;
   if (m.length < 10 || m.length > 2000) return res.status(400).json({ ok: false, error: "Write a message of 10–2000 characters." });
   if (!process.env.RESEND_API_KEY) return res.status(503).json({ ok: false, error: "The form isn't configured yet. Please use WhatsApp or email." });
   try {
@@ -52,8 +55,8 @@ app.post("/api/contact", limiter, async (req, res) => {
         from: process.env.CONTACT_FROM || "YUSUF TECH <onboarding@resend.dev>",
         to: [process.env.CONTACT_TO || site.email],
         reply_to: e,
-        subject: `New project enquiry from ${n.replace(/[\r\n]/g, " ")}`,
-        html: `<p><b>Name:</b> ${esc(n)}<br><b>Email:</b> ${esc(e)}</p><p>${esc(m).replace(/\n/g, "<br>")}</p>`
+        subject: `New ${kind.replace(/[\r\n]/g, " ")} enquiry from ${n.replace(/[\r\n]/g, " ")}`,
+        html: `<p><b>Name:</b> ${esc(n)}<br><b>Email:</b> ${esc(e)}<br><b>Website type:</b> ${esc(kind)}</p><p>${esc(m).replace(/\n/g, "<br>")}</p>`
       })
     });
     if (!r.ok) throw new Error(`Resend ${r.status}`);
