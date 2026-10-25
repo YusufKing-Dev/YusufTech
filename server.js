@@ -16,13 +16,13 @@ app.use(compression());
 // Serve each demo from GitHub Pages under /demos/<name>/ so visitors stay on this domain.
 // Registered before helmet so the demos' own scripts and styles aren't blocked by this site's CSP.
 const repos = new Map(site.projects.map((p) => [p.slug.toLowerCase(), p.slug]));
-app.get("/demos/:name", (req, res, next) => repos.has(req.params.name.toLowerCase()) ? res.redirect(302, `/demos/${req.params.name.toLowerCase()}/`) : next());
-app.get("/demos/:name/*", async (req, res, next) => {
-  const repo = repos.get(req.params.name.toLowerCase());
+app.get(/^\/demos\/([^/]+)$/, (req, res, next) => repos.has(req.params[0].toLowerCase()) ? res.redirect(302, `/demos/${req.params[0].toLowerCase()}/`) : next());
+app.get(/^\/demos\/([^/]+)\/(.*)$/, async (req, res, next) => {
+  const repo = repos.get(req.params[0].toLowerCase());
   if (!repo) return next();
   const qs = req.url.includes("?") ? "?" + req.url.split("?")[1] : "";
   try {
-    const r = await fetch(`https://yusufking-dev.github.io/${repo}/${req.params[0] || ""}${qs}`);
+    const r = await fetch(`https://yusufking-dev.github.io/${repo}/${req.params[1] || ""}${qs}`);
     if (!r.ok) return res.status(r.status === 404 ? 404 : 502).send("Not found");
     res.set("Content-Type", r.headers.get("content-type") || "application/octet-stream");
     res.set("Cache-Control", "public, max-age=300, s-maxage=3600");
