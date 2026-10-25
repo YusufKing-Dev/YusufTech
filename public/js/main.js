@@ -19,7 +19,7 @@
 
   document.querySelectorAll(".thumb img").forEach(function (im) { im.addEventListener("error", function () { im.remove(); }); });
 
-  var els = document.querySelectorAll(".hero-copy,.stats,.chips,.photo,.prose,.sec h2,.sub,.filters,.card,.proj,.skills>div,.form,#contact .lead,.socials");
+  var els = document.querySelectorAll(".hero-copy,.stats,.chips,.photo,.prose,.sec h2,.sub,.filters,.card,.proj,.skills>div,.steps li,.pkg,.faq details,.form,#contact .lead,.socials");
   if ("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });

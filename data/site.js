@@ -18,6 +18,25 @@ module.exports = {
     { id: "x", label: "X", url: "https://x.com/YusufKing_0x7" }
   ],
   projectTypes: ["Business website", "Portfolio", "Online store", "School or institution", "Real estate", "Restaurant or café", "Web3 / token project", "Other"],
+  process: [
+    ["Tell me about it", "Send a short brief through the form or WhatsApp: what you do, who it's for, and what you need."],
+    ["Agree the plan", "I reply with a clear scope, a fixed quote, and a timeline before any work starts."],
+    ["I build, you review", "You see the site as it takes shape and ask for changes until it's right."],
+    ["Launch", "I deploy it on your domain, check it on phone and desktop, and hand it over."]
+  ],
+  packages: [
+    { name: "Landing page", price: "", note: "One focused page to get you online fast.", items: ["Single scrolling page", "Mobile-first design", "Contact form or WhatsApp button", "Deployed on your domain"] },
+    { name: "Business website", price: "", featured: true, note: "A complete site for a business or professional.", items: ["Multi-page site", "Services, gallery, and location sections", "Working contact or enquiry form", "Basic SEO and fast loading", "Deployed on your domain"] },
+    { name: "Custom build", price: "", note: "For platforms, Web3 projects, and bots.", items: ["Node.js or React web apps", "Token sites and DApps", "Telegram bots and payment APIs", "Scoped and quoted per project"] }
+  ],
+  faqs: [
+    ["How much does a website cost?", "It depends on the number of pages and features. Tell me what you need through the form and I'll reply with a fixed quote, so there are no surprises later."],
+    ["How long does it take?", "Simple sites can be ready within about a day. Larger builds take longer, and I give you a timeline with the quote."],
+    ["Who owns the website?", "You do. The site is built for you and delivered on your own domain."],
+    ["Do you help with the domain and hosting?", "Yes. I can set up the domain and hosting for you, or deploy to ones you already have."],
+    ["Will it work on phones?", "Yes. Every site is designed mobile-first and tested on phone and desktop before launch."],
+    ["Do you work with clients outside Nigeria?", "Yes. I work with clients everywhere. Everything is done online, by WhatsApp, Telegram, or email."]
+  ],
   stats: [["5.0", "Average rating"], ["50+", "Happy clients"], ["24h", "Average delivery"]],
   industries: ["Cafés & restaurants", "Laundry & service businesses", "Law firms", "Real estate", "Schools", "Personal portfolios"],
   about: [

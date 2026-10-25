@@ -21,6 +21,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@500;600;700;800&display=swap">
 <link rel="stylesheet" href="/css/style.css">
 <script type="application/ld+json"><%- JSON.stringify({"@context":"https://schema.org","@type":"ProfessionalService","name":site.brand,"url":site.url,"description":site.description,"email":site.email,"areaServed":"Worldwide","sameAs":site.socials.filter(s=>s.url.startsWith("http")).map(s=>s.url)}).replace(/</g,"\\u003c") %></script>
+<script type="application/ld+json"><%- JSON.stringify({"@context":"https://schema.org","@type":"FAQPage","mainEntity":site.faqs.map(f=>({"@type":"Question","name":f[0],"acceptedAnswer":{"@type":"Answer","text":f[1]}}))}).replace(/</g,"\\u003c") %></script>
 </head>
 <body id="top">
 <div class="loader-wrap" id="loader" role="status" aria-label="Loading">
@@ -32,7 +33,7 @@
   <div class="wrap nav-in">
     <a href="#top" class="brand"><img class="mark" src="<%= site.logo %>" alt="" width="38" height="38"><b>YUSUF<span>TECH</span></b></a>
     <nav id="menu" aria-label="Main">
-      <a href="#about">About</a><a href="#services">Services</a><a href="#work">Work</a><a href="#skills">Skills</a><a href="#why">Why me</a><a href="#contact">Contact</a>
+      <a href="#about">About</a><a href="#services">Services</a><a href="#work">Work</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
     </nav>
     <a href="#contact" class="btn btn-amber nav-cta">Start a project</a>
     <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="menu"><i></i><i></i></button>
@@ -82,6 +83,22 @@
   </div>
 </section>
 
+<section class="sec wrap" id="pricing">
+  <h2>How it works</h2>
+  <ol class="grid4 steps"><% site.process.forEach((p, i) => { %><li class="card"><span class="n"><%= i + 1 %></span><h3><%= p[0] %></h3><p><%= p[1] %></p></li><% }) %></ol>
+  <h2 class="gap">Packages</h2>
+  <p class="sub">Every project is quoted to its scope. These are the starting points.</p>
+  <div class="grid3"><% site.packages.forEach(k => { %>
+    <article class="card pkg<%= k.featured ? ' feat' : '' %>">
+      <h3><%= k.name %></h3>
+      <p class="price"><%= k.price || "Get a quote" %></p>
+      <p><%= k.note %></p>
+      <ul><% k.items.forEach(i => { %><li><%= i %></li><% }) %></ul>
+      <a href="#contact" class="btn <%= k.featured ? 'btn-amber' : 'btn-ghost' %>">Request a quote</a>
+    </article><% }) %>
+  </div>
+</section>
+
 <section class="sec wrap" id="skills">
   <h2>Skills & tools</h2>
   <div class="skills"><% site.skills.forEach(g => { %><div><h3><%= g[0] %></h3><ul><% g[1].forEach(i => { %><li><%= i %></li><% }) %></ul></div><% }) %></div>
@@ -90,6 +107,11 @@
 <section class="sec wrap" id="why">
   <h2>Why work with me</h2>
   <div class="grid3"><% site.why.forEach(w => { %><article class="card"><h3><%= w[0] %></h3><p><%= w[1] %></p></article><% }) %></div>
+</section>
+
+<section class="sec wrap" id="faq">
+  <h2>Questions people ask</h2>
+  <div class="faq"><% site.faqs.forEach(f => { %><details><summary><%= f[0] %></summary><p><%= f[1] %></p></details><% }) %></div>
 </section>
 
 <section class="sec wrap split" id="contact">

@@ -60,6 +60,18 @@ app.post("/api/contact", limiter, async (req, res) => {
       })
     });
     if (!r.ok) throw new Error(`Resend ${r.status}`);
+    // Auto-reply to the visitor. Awaited so serverless doesn't freeze before it sends; a failure never fails the form.
+    await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        from: process.env.CONTACT_FROM || "YUSUF TECH <onboarding@resend.dev>",
+        to: [e],
+        reply_to: process.env.CONTACT_TO || site.email,
+        subject: "Thanks for your message | YUSUF TECH",
+        html: `<p>Hi ${esc(n)},</p><p>Thanks for getting in touch about a <b>${esc(kind)}</b> project. I've received your message and will reply within 24 hours.</p><p>If it's urgent, message me on WhatsApp: <a href="${site.socials[0].url}">${site.socials[0].url}</a></p><p>Yusuf<br>YUSUF TECH</p>`
+      })
+    }).catch((err) => console.error("auto-reply failed", err.message));
     res.json({ ok: true });
   } catch (err) {
     console.error(err.message);
