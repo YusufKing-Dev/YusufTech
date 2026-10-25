@@ -1,6 +1,6 @@
 const G = { RC: ["#0f1e3d", "#1b2f57"], LS: ["#e4703c", "#4c7a54"], KK: ["#3a2416", "#6b4226"], NB: ["#d9481d", "#f4b942"], CP: ["#6e1423", "#8a3324"], SW: ["#0e6ba8", "#5fa8d3"], QP: ["#1d2027", "#3a3f4a"], EC: ["#0b4f4a", "#1f7a70"], AP: ["#4a3423", "#7a5a3a"], OU: ["#1a2340", "#2e3d6b"] };
 const OWN_DOMAIN_DEMOS = true; // false = link straight to github.io
-const P = (cat, ini, city, name, desc, slug) => { const gh = `https://yusufking-dev.github.io/${slug}/`, url = OWN_DOMAIN_DEMOS ? `/demos/${slug.toLowerCase()}/` : gh; return { cat, ini, city, name, desc, url, grad: G[ini], shot: `https://image.thum.io/get/width/700/crop/900/noanimate/${gh}`, stack: "HTML · CSS · JS" }; };
+const P = (cat, ini, city, name, desc, slug) => { const gh = `https://yusufking-dev.github.io/${slug}/`, url = OWN_DOMAIN_DEMOS ? `/demos/${slug.toLowerCase()}/` : gh; return { cat, ini, city, name, desc, slug, url, grad: G[ini], shot: `https://image.thum.io/get/width/700/crop/900/noanimate/${gh}`, stack: "HTML · CSS · JS" }; };
 module.exports = {
   url: "https://hireyusuftech.online",
   brand: "YUSUF TECH",
