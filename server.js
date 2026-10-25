@@ -18,7 +18,7 @@ app.use(helmet({
       styleSrc: ["'self'", "https://fonts.googleapis.com"],
       fontSrc: ["https://fonts.gstatic.com"],
       scriptSrc: ["'self'"],
-      imgSrc: ["'self'", "data:"],
+      imgSrc: ["'self'", "data:", "https://res.cloudinary.com", "https://image.thum.io"],
       connectSrc: ["'self'"],
       formAction: ["'self'"],
       frameAncestors: ["'none'"],

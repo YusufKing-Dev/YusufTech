@@ -17,6 +17,16 @@
     });
   });
 
+  document.querySelectorAll(".thumb img").forEach(function (im) { im.addEventListener("error", function () { im.remove(); }); });
+
+  var els = document.querySelectorAll(".hero-copy,.stats,.chips,.photo,.prose,.sec h2,.sub,.filters,.card,.proj,.skills>div,.form,#contact .lead,.socials");
+  if ("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    els.forEach(function (el, i) { el.classList.add("reveal"); el.style.transitionDelay = (i % 3) * 90 + "ms"; io.observe(el); });
+  }
+
   var form = document.getElementById("form"), msg = document.getElementById("msg");
   form.addEventListener("submit", async function (e) {
     e.preventDefault();

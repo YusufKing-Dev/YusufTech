@@ -14,6 +14,8 @@
 <meta property="og:url" content="<%= site.url %>/">
 <meta property="og:site_name" content="YUSUF TECH">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="<%= site.logo %>">
+<link rel="apple-touch-icon" href="<%= site.logo %>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@500;600;700;800&display=swap">
@@ -28,7 +30,7 @@
 
 <header class="nav">
   <div class="wrap nav-in">
-    <a href="#top" class="brand">YUSUF<span>TECH</span></a>
+    <a href="#top" class="brand"><img class="mark" src="<%= site.logo %>" alt="" width="38" height="38"><b>YUSUF<span>TECH</span></b></a>
     <nav id="menu" aria-label="Main">
       <a href="#about">About</a><a href="#services">Services</a><a href="#work">Work</a><a href="#skills">Skills</a><a href="#why">Why me</a><a href="#contact">Contact</a>
     </nav>
@@ -52,8 +54,8 @@
 <div class="wrap"><ul class="chips"><% site.industries.forEach(i => { %><li><%= i %></li><% }) %></ul></div>
 
 <section class="sec wrap split" id="about">
-  <div><h2>Hi, I'm Yusuf.</h2></div>
-  <div class="prose"><% site.about.forEach(p => { %><p><%= p %></p><% }) %></div>
+  <div class="photo"><img src="<%= site.photo %>" alt="Yusuf, founder and developer at YUSUF TECH" width="420" height="420" loading="lazy"></div>
+  <div class="prose"><h2>Hi, I'm Yusuf.</h2><% site.about.forEach(p => { %><p><%= p %></p><% }) %></div>
 </section>
 
 <section class="sec wrap" id="services">
@@ -71,7 +73,7 @@
   <div class="grid3" id="projects">
     <% site.projects.forEach(p => { %>
     <a class="proj" data-cat="<%= p.cat %>" href="<%= p.url %>" target="_blank" rel="noopener">
-      <span class="mono"><%= p.ini %></span>
+      <span class="thumb" style="background:linear-gradient(135deg,<%= p.grad[0] %>,<%= p.grad[1] %>)"><img src="<%= p.shot %>" alt="Preview of <%= p.name %>" loading="lazy" width="700" height="440"><i><%= p.ini %></i></span>
       <h3><%= p.name %></h3>
       <p><%= p.desc %></p>
       <small><%= p.city %> · <%= p.stack %></small>

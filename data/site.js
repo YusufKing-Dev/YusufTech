@@ -1,7 +1,10 @@
-const P = (cat, ini, city, name, desc, slug) => ({ cat, ini, city, name, desc, url: `https://yusufking-dev.github.io/${slug}/`, stack: "HTML · CSS · JS" });
+const G = { RC: ["#0f1e3d", "#1b2f57"], LS: ["#e4703c", "#4c7a54"], KK: ["#3a2416", "#6b4226"], NB: ["#d9481d", "#f4b942"], CP: ["#6e1423", "#8a3324"], SW: ["#0e6ba8", "#5fa8d3"], QP: ["#1d2027", "#3a3f4a"], EC: ["#0b4f4a", "#1f7a70"], AP: ["#4a3423", "#7a5a3a"], OU: ["#1a2340", "#2e3d6b"] };
+const P = (cat, ini, city, name, desc, slug) => { const url = `https://yusufking-dev.github.io/${slug}/`; return { cat, ini, city, name, desc, url, grad: G[ini], shot: `https://image.thum.io/get/width/700/crop/900/noanimate/${url}`, stack: "HTML · CSS · JS" }; };
 module.exports = {
   url: "https://hireyusuftech.online",
   brand: "YUSUF TECH",
+  logo: "https://res.cloudinary.com/drdrwbdkp/image/upload/v1787494646/file_00000000f5b881f7ae73f9618ea5ae58_nqmlm8.png",
+  photo: "https://res.cloudinary.com/drdrwbdkp/image/upload/v1787495010/file_00000000dad88210a5a0e6c071fcae65_eofdjw.png",
   title: "YUSUF TECH — Web Developer for Businesses & Professionals in Nigeria",
   description: "YUSUF TECH designs and builds professional websites for cafés, laundries, law firms, real estate agencies, schools, and personal brands — fast, mobile-friendly, and fully deployed. Based in Nigeria, working with clients everywhere.",
   ogImage: "https://res.cloudinary.com/drdrwbdkp/image/upload/v1787495010/file_00000000dad88210a5a0e6c071fcae65_eofdjw.png",
