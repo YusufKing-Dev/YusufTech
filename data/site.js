@@ -1,13 +1,14 @@
-const G = { RC: ["#0f1e3d", "#1b2f57"], LS: ["#e4703c", "#4c7a54"], KK: ["#3a2416", "#6b4226"], NB: ["#d9481d", "#f4b942"], CP: ["#6e1423", "#8a3324"], SW: ["#0e6ba8", "#5fa8d3"], QP: ["#1d2027", "#3a3f4a"], EC: ["#0b4f4a", "#1f7a70"], AP: ["#4a3423", "#7a5a3a"], OU: ["#1a2340", "#2e3d6b"] };
+const G = { RC: ["#0f1e3d", "#1b2f57"], LS: ["#e4703c", "#4c7a54"], KK: ["#3a2416", "#6b4226"], NB: ["#d9481d", "#f4b942"], CP: ["#6e1423", "#8a3324"], SW: ["#0e6ba8", "#5fa8d3"], QP: ["#1d2027", "#3a3f4a"], EC: ["#0b4f4a", "#1f7a70"], AP: ["#4a3423", "#7a5a3a"], OU: ["#1a2340", "#2e3d6b"], SB: ["#12306b", "#c8962e"] };
 const OWN_DOMAIN_DEMOS = true; // false = link straight to github.io
 const P = (cat, ini, city, name, desc, slug) => { const gh = `https://yusufking-dev.github.io/${slug}/`, url = OWN_DOMAIN_DEMOS ? `/demos/${slug.toLowerCase()}/` : gh; return { cat, ini, city, name, desc, slug, url, grad: G[ini], shot: `https://image.thum.io/get/width/700/crop/900/noanimate/${gh}`, stack: "HTML · CSS · JS" }; };
+const X = (cat, ini, city, name, desc, url, shot) => ({ cat, ini, city, name, desc, url, grad: G[ini], shot, stack: "Live website", external: true });
 module.exports = {
   url: "https://hireyusuftech.online",
   brand: "YUSUF TECH",
   logo: "https://res.cloudinary.com/drdrwbdkp/image/upload/v1787494646/file_00000000f5b881f7ae73f9618ea5ae58_nqmlm8.png",
   photo: "https://res.cloudinary.com/drdrwbdkp/image/upload/v1787495010/file_00000000dad88210a5a0e6c071fcae65_eofdjw.png",
-  title: "YUSUF TECH — Web Developer for Businesses & Professionals in Nigeria",
-  description: "YUSUF TECH designs and builds professional websites for cafés, laundries, law firms, real estate agencies, schools, and personal brands — fast, mobile-friendly, and fully deployed. Based in Nigeria, working with clients everywhere.",
+  title: "YUSUF TECH — Web Developer & Digital Marketing for Businesses in Nigeria",
+  description: "YUSUF TECH designs and builds professional websites for cafés, laundries, law firms, real estate agencies, schools, and personal brands — fast, mobile-friendly, and fully deployed — plus SEO and digital advertising to help customers find you. Based in Nigeria, working with clients everywhere.",
   ogImage: "https://res.cloudinary.com/drdrwbdkp/image/upload/v1787495010/file_00000000dad88210a5a0e6c071fcae65_eofdjw.png",
   email: "yusuftech767@gmail.com",
   socials: [
@@ -18,7 +19,7 @@ module.exports = {
     { id: "github", label: "GitHub", url: "https://github.com/YusufKing-dev" },
     { id: "x", label: "X", url: "https://x.com/YusufKing_0x7" }
   ],
-  projectTypes: ["Business website", "Portfolio", "Online store", "School or institution", "Real estate", "Restaurant or café", "Web3 / token project", "Other"],
+  projectTypes: ["Business website", "Portfolio", "Online store", "School or institution", "Real estate", "Restaurant or café", "Web3 / token project", "SEO optimization", "Digital advertising", "Other"],
   process: [
     ["Tell me about it", "Send a short brief through the form or WhatsApp: what you do, who it's for, and what you need."],
     ["Agree the plan", "I reply with a clear scope, a fixed quote, and a timeline before any work starts."],
@@ -65,10 +66,37 @@ module.exports = {
     ["Personal portfolios", "For consultants, creatives, and freelancers who need a site that reads as a credential."],
     ["Bots & Web3", "Telegram bots wired to payment APIs, token deployment, and NFT collections when the project calls for it."]
   ],
+  marketing: {
+    kicker: "Digital Marketing",
+    title: "Get Found. Reach More Customers. Grow Your Business.",
+    intro: [
+      "Having a website is only the beginning. Your business also needs visibility and the right strategy to reach potential customers.",
+      "At YusufTech, we help businesses improve their online visibility and reach their target audiences through strategic SEO optimization and digital advertising.",
+      "Our goal is to help your business get discovered, attract relevant traffic and create more opportunities for growth."
+    ],
+    servicesTitle: "Our Digital Marketing Services",
+    services: [
+      { n: "01", name: "SEO Optimization", tag: "Make your business easier to discover online.", desc: "We optimize websites to improve their visibility on search engines, strengthen search performance and help potential customers find your products and services.", items: ["Website SEO optimization", "On-page SEO", "Keyword research and optimization", "Meta titles and descriptions optimization", "Website content optimization", "Technical SEO improvements", "Search engine visibility improvements"] },
+      { n: "02", name: "Digital Advertising", tag: "Put your business in front of the right audience.", desc: "We help businesses reach potential customers through strategic digital advertising campaigns designed to increase brand awareness, drive relevant traffic and support business growth.", items: ["Digital advertising campaign setup", "Audience targeting", "Campaign planning and strategy", "Ad creative and messaging guidance", "Campaign performance monitoring", "Advertising performance optimization"] }
+    ],
+    whyTitle: "Why YusufTech?",
+    why: ["Strategic, goal-oriented solutions", "Focus on relevant audiences", "Data-informed decision-making", "Solutions tailored to your business", "Commitment to continuous improvement"],
+    processTitle: "Our Process",
+    process: [
+      ["Understand", "We learn about your business and marketing objectives."],
+      ["Plan", "We develop an approach suited to your goals."],
+      ["Execute", "We implement the SEO or advertising strategy."],
+      ["Optimize", "We monitor performance and identify opportunities for improvement."]
+    ],
+    ctaTitle: "Ready to grow your online presence?",
+    ctaText: ["Don't let your business get lost in the digital crowd.", "Let YusufTech help you improve your search visibility and reach more potential customers.", "Let's put your business in front of the right audience."],
+    ctaButton: "Get started with YusufTech",
+    ctaSite: "www.hireyusuftech.online",
+    tagline: "YUSUFTECH — Your Trusted Tech Partner"
+  },
   categories: ["Academic & Schools", "Cafés & Food", "Laundry & Garment Care", "Real Estate", "Professional Services"],
   projects: [
-    P("Academic & Schools", "RC", "Lagos", "Royal Crest College", "A navy-and-gold boarding secondary school built to feel decades-established.", "Royalcrestcollege"),
-    P("Academic & Schools", "LS", "Enugu", "Little Sprouts Nursery & Primary", "A warm, playful nursery school site with organic shapes and a speech-bubble schedule.", "Littlesprouts"),
+    X("Academic & Schools", "SB", "Nigeria", "Solid Bright Academy", "A live school website that presents the academy, its programmes and admissions clearly to parents.", "https://www.solidbrightacademy.com.ng/", "https://image.thum.io/get/width/700/crop/900/noanimate/https://www.solidbrightacademy.com.ng/"),
     P("Cafés & Food", "KK", "Yaba, Lagos", "Kúrú Kúrú Coffee House", "A specialty third-wave coffee roaster site across three Lagos branches.", "Cafekurukuru"),
     P("Cafés & Food", "NB", "Wuse 2, Abuja", "Naija Brew Café", "A high-energy café site built around live-band Fridays and street-food flavour.", "Cafenaija"),
     P("Cafés & Food", "CP", "Enugu", "Chai & Puff Lounge", "A three-generation traditional Nigerian tea lounge, built around nostalgia and heritage.", "Chai-Puff"),

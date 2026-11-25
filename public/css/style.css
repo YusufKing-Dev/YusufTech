@@ -100,3 +100,18 @@ h2.gap{margin-top:clamp(56px,8vw,88px)}
 @media(max-width:900px){.grid4{grid-template-columns:1fr 1fr}}
 @media(max-width:720px){.grid4{grid-template-columns:1fr}}
 .nf{min-height:100vh;display:grid;place-items:center;text-align:center;padding:24px}.nf h1{margin:18px auto 0;font-size:clamp(1.8rem,5vw,2.6rem)}.nf .lead{margin-inline:auto}.nf .actions{justify-content:center}
+
+/* digital marketing */
+.kicker{color:var(--amber);font:600 .8rem Sora,sans-serif;letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px}
+.mk-intro{margin-top:20px}
+.mk-h{font-size:1.35rem;margin-top:clamp(44px,6vw,64px)}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:24px}
+.mk h3{margin-top:14px;font-size:1.3rem}.mk-tag{color:var(--off)!important;font-weight:500}
+.mk h4{margin-top:22px;font:600 .8rem Sora,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--amber)}
+.ticks{margin-top:8px}.ticks li{position:relative;padding:9px 0 9px 26px;border-bottom:1px solid var(--line);color:var(--dim);font-size:.93rem}
+.ticks li::before{content:"";position:absolute;left:4px;top:15px;width:6px;height:11px;border:solid var(--amber);border-width:0 2px 2px 0;transform:rotate(45deg) scale(.8)}
+.mk-why{margin-top:20px;border:0;padding:0}.mk-why li{color:var(--off);border:1px solid var(--line)}
+.mk-cta{margin-top:clamp(48px,7vw,80px);padding:clamp(26px,5vw,48px);border:1px solid var(--amber);border-radius:var(--r);background:var(--amber-d)}
+.mk-cta h3{font-size:clamp(1.4rem,3vw,2rem)}.mk-cta p{color:var(--dim);margin-top:10px;max-width:60ch}
+.mk-cta .mk-site{color:var(--amber);font-weight:600;margin-top:20px}.mk-cta .mk-brand{font-size:.85rem;letter-spacing:.06em;margin-top:4px}
+@media(max-width:720px){.grid2{grid-template-columns:1fr}}

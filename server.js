@@ -15,7 +15,7 @@ app.use(compression());
 
 // Serve each demo from GitHub Pages under /demos/<name>/ so visitors stay on this domain.
 // Registered before helmet so the demos' own scripts and styles aren't blocked by this site's CSP.
-const repos = new Map(site.projects.map((p) => [p.slug.toLowerCase(), p.slug]));
+const repos = new Map(site.projects.filter((p) => !p.external).map((p) => [p.slug.toLowerCase(), p.slug]));
 app.get(/^\/demos\/([^/]+)$/, (req, res, next) => repos.has(req.params[0].toLowerCase()) ? res.redirect(302, `/demos/${req.params[0].toLowerCase()}/`) : next());
 app.get(/^\/demos\/([^/]+)\/(.*)$/, async (req, res, next) => {
   const repo = repos.get(req.params[0].toLowerCase());
@@ -66,8 +66,8 @@ app.post("/api/contact", limiter, async (req, res) => {
   const n = String(name).trim(), e = String(email).trim(), m = String(message).trim(), t = String(type).trim(), o = String(other).trim();
   if (n.length < 2 || n.length > 80) return res.status(400).json({ ok: false, error: "Enter your name (2–80 characters)." });
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e) || e.length > 120) return res.status(400).json({ ok: false, error: "Enter a valid email address." });
-  if (!site.projectTypes.includes(t)) return res.status(400).json({ ok: false, error: "Choose the type of website you need." });
-  if (t === "Other" && (o.length < 2 || o.length > 80)) return res.status(400).json({ ok: false, error: "Tell me what kind of website you need (2–80 characters)." });
+  if (!site.projectTypes.includes(t)) return res.status(400).json({ ok: false, error: "Choose what you need." });
+  if (t === "Other" && (o.length < 2 || o.length > 80)) return res.status(400).json({ ok: false, error: "Tell me what you need (2–80 characters)." });
   const kind = t === "Other" ? `Other: ${o}` : t;
   if (m.length < 10 || m.length > 2000) return res.status(400).json({ ok: false, error: "Write a message of 10–2000 characters." });
   if (!process.env.RESEND_API_KEY) return res.status(503).json({ ok: false, error: "The form isn't configured yet. Please use WhatsApp or email." });

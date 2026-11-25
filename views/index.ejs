@@ -9,7 +9,7 @@
 <meta name="theme-color" content="#0d0f12">
 <meta property="og:type" content="website">
 <meta property="og:title" content="YUSUF TECH — Web Developer for Businesses & Professionals">
-<meta property="og:description" content="Professional websites for cafés, laundries, law firms, real estate agencies, schools, and personal brands — designed, built, and deployed by YUSUF TECH.">
+<meta property="og:description" content="Professional websites, SEO optimization and digital advertising for cafés, laundries, law firms, real estate agencies, schools, and personal brands — by YUSUF TECH.">
 <meta property="og:image" content="<%= site.ogImage %>">
 <meta property="og:url" content="<%= site.url %>/">
 <meta property="og:site_name" content="YUSUF TECH">
@@ -33,7 +33,7 @@
   <div class="wrap nav-in">
     <a href="#top" class="brand"><img class="mark" src="<%= site.logo %>" alt="" width="38" height="38"><b>YUSUF<span>TECH</span></b></a>
     <nav id="menu" aria-label="Main">
-      <a href="#about">About</a><a href="#services">Services</a><a href="#work">Work</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
+      <a href="#about">About</a><a href="#services">Services</a><a href="#marketing">Marketing</a><a href="#work">Work</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
     </nav>
     <a href="#contact" class="btn btn-amber nav-cta">Start a project</a>
     <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="menu"><i></i><i></i></button>
@@ -65,9 +65,41 @@
   <div class="grid3"><% site.services.forEach(s => { %><article class="card"><h3><%= s[0] %></h3><p><%= s[1] %></p></article><% }) %></div>
 </section>
 
+<section class="sec wrap" id="marketing">
+  <p class="kicker"><%= site.marketing.kicker %></p>
+  <h2><%= site.marketing.title %></h2>
+  <div class="prose mk-intro"><% site.marketing.intro.forEach(p => { %><p><%= p %></p><% }) %></div>
+
+  <h3 class="mk-h"><%= site.marketing.servicesTitle %></h3>
+  <div class="grid2"><% site.marketing.services.forEach(m => { %>
+    <article class="card mk">
+      <span class="n"><%= m.n %></span>
+      <h3><%= m.name %></h3>
+      <p class="mk-tag"><%= m.tag %></p>
+      <p><%= m.desc %></p>
+      <h4>What we offer</h4>
+      <ul class="ticks"><% m.items.forEach(i => { %><li><%= i %></li><% }) %></ul>
+    </article><% }) %>
+  </div>
+
+  <h3 class="mk-h"><%= site.marketing.whyTitle %></h3>
+  <ul class="chips mk-why"><% site.marketing.why.forEach(w => { %><li><%= w %></li><% }) %></ul>
+
+  <h3 class="mk-h"><%= site.marketing.processTitle %></h3>
+  <ol class="grid4 steps"><% site.marketing.process.forEach((p, i) => { %><li class="card"><span class="n">0<%= i + 1 %></span><h3><%= p[0] %></h3><p><%= p[1] %></p></li><% }) %></ol>
+
+  <div class="mk-cta">
+    <h3><%= site.marketing.ctaTitle %></h3>
+    <% site.marketing.ctaText.forEach(t => { %><p><%= t %></p><% }) %>
+    <div class="actions"><a href="#contact" class="btn btn-amber"><%= site.marketing.ctaButton %></a></div>
+    <p class="mk-site"><%= site.marketing.ctaSite %></p>
+    <p class="mk-brand"><%= site.marketing.tagline %></p>
+  </div>
+</section>
+
 <section class="sec wrap" id="work">
   <h2>Featured work</h2>
-  <p class="sub">Ten live sites across five industries. Each one is a real, working site.</p>
+  <p class="sub"><%= site.projects.length %> live sites across five industries. Each one is a real, working site.</p>
   <div class="filters" role="group" aria-label="Filter projects">
     <button class="on" data-f="all">All</button><% site.categories.forEach(c => { %><button data-f="<%= c %>"><%= c %></button><% }) %>
   </div>
@@ -123,7 +155,7 @@
   <form id="form" class="form" novalidate>
     <label>Name<input name="name" autocomplete="name" required minlength="2" maxlength="80"></label>
     <label>Email<input name="email" type="email" autocomplete="email" required maxlength="120"></label>
-    <label>Type of website
+    <label>What do you need?
       <select name="type" id="type" required><option value="" disabled selected>Choose one</option><% site.projectTypes.forEach(t => { %><option><%= t %></option><% }) %></select>
     </label>
     <label id="otherWrap" hidden>What kind of website?<input name="other" id="other" maxlength="80" placeholder="e.g. church, NGO, event page"></label>
