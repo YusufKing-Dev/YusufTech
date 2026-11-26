@@ -3,7 +3,7 @@ const OWN_DOMAIN_DEMOS = true; // false = link straight to github.io
 const P = (cat, ini, city, name, desc, slug) => { const gh = `https://yusufking-dev.github.io/${slug}/`, url = OWN_DOMAIN_DEMOS ? `/demos/${slug.toLowerCase()}/` : gh; return { cat, ini, city, name, desc, slug, url, grad: G[ini], shot: `https://image.thum.io/get/width/700/crop/900/noanimate/${gh}`, stack: "HTML · CSS · JS" }; };
 const X = (cat, ini, city, name, desc, url, shot) => ({ cat, ini, city, name, desc, url, grad: G[ini], shot, stack: "Live website", external: true });
 module.exports = {
-  url: "https://hireyusuftech.online",
+  url: "https://www.hireyusuftech.online",
   brand: "YUSUF TECH",
   logo: "https://res.cloudinary.com/drdrwbdkp/image/upload/v1787494646/file_00000000f5b881f7ae73f9618ea5ae58_nqmlm8.png",
   photo: "https://res.cloudinary.com/drdrwbdkp/image/upload/v1787495010/file_00000000dad88210a5a0e6c071fcae65_eofdjw.png",
@@ -40,6 +40,12 @@ module.exports = {
     ["Do you work with clients outside Nigeria?", "Yes. I work with clients everywhere. Everything is done online, by WhatsApp, Telegram, or email."]
   ],
   stats: [["5.0", "Average rating"], ["50+", "Happy clients"], ["24h", "Average delivery"]],
+  // Add real client quotes here and they appear on the page automatically, e.g.
+  // { quote: "Short quote from the client.", name: "Client name", role: "Business, City" }
+  testimonials: [],
+  // Icon for each card, in the same order as the lists they belong to.
+  serviceIcons: ["cup", "scale", "building", "school", "user", "bot"],
+  whyIcons: ["chat", "eye", "layout", "bolt", "globe"],
   industries: ["Cafés & restaurants", "Laundry & service businesses", "Law firms", "Real estate", "Schools", "Personal portfolios"],
   about: [
     "I started building websites because I saw too many great ideas held back by a poor online presence. A strong product, business, or project deserves a website that inspires confidence from the first second.",

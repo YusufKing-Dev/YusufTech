@@ -5,6 +5,7 @@ const compression = require("compression");
 const rateLimit = require("express-rate-limit");
 const site = require("./data/site");
 const icon = require("./lib/icons");
+const glyph = require("./lib/glyphs");
 
 const app = express();
 app.set("view engine", "ejs");
@@ -51,7 +52,7 @@ app.use(helmet({
 app.use(express.json({ limit: "20kb" }));
 app.use(express.static(path.join(__dirname, "public"), { maxAge: "7d" }));
 
-app.get("/", (req, res) => res.render("index", { site, icon }));
+app.get("/", (req, res) => res.render("index", { site, icon, glyph }));
 
 app.get("/robots.txt", (req, res) => res.type("text/plain").send(`User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /demos/\n\nSitemap: ${site.url}/sitemap.xml\n`));
 app.get("/sitemap.xml", (req, res) => res.type("application/xml").send(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>${site.url}/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>\n</urlset>\n`));

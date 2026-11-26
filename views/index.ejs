@@ -19,6 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@500;600;700;800&display=swap">
+<script src="/js/theme.js"></script>
 <link rel="stylesheet" href="/css/style.css">
 <script type="application/ld+json"><%- JSON.stringify({"@context":"https://schema.org","@type":"ProfessionalService","name":site.brand,"url":site.url,"description":site.description,"email":site.email,"areaServed":"Worldwide","sameAs":site.socials.filter(s=>s.url.startsWith("http")).map(s=>s.url)}).replace(/</g,"\\u003c") %></script>
 <script type="application/ld+json"><%- JSON.stringify({"@context":"https://schema.org","@type":"FAQPage","mainEntity":site.faqs.map(f=>({"@type":"Question","name":f[0],"acceptedAnswer":{"@type":"Answer","text":f[1]}}))}).replace(/</g,"\\u003c") %></script>
@@ -29,6 +30,7 @@
 </div>
 <noscript><style>#loader{display:none}</style></noscript>
 
+<div class="progress" id="progress" aria-hidden="true"></div>
 <header class="nav">
   <div class="wrap nav-in">
     <a href="#top" class="brand"><img class="mark" src="<%= site.logo %>" alt="" width="38" height="38"><b>YUSUF<span>TECH</span></b></a>
@@ -36,44 +38,84 @@
       <a href="#about">About</a><a href="#services">Services</a><a href="#marketing">Marketing</a><a href="#work">Work</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
     </nav>
     <a href="#contact" class="btn btn-amber nav-cta">Start a project</a>
+    <button class="theme-toggle" id="theme" type="button" aria-label="Switch to light mode"><span class="ico-moon"><%- glyph("moon") %></span><span class="ico-sun"><%- glyph("sun") %></span></button>
     <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="menu"><i></i><i></i></button>
   </div>
 </header>
 
 <main>
+<div class="hero-bg" aria-hidden="true"><span class="blob b1"></span><span class="blob b2"></span><span class="gridbg"></span></div>
 <section class="hero wrap">
   <div class="hero-copy">
     <p class="status"><span class="dot"></span>Taking new projects</p>
-    <h1>Websites that make your business look like it has already made it.</h1>
+    <h1>Websites that make your <span class="rot" id="rot" data-words="business,café,law firm,school,brand,laundry">business</span> look like it has already made it.</h1>
     <p class="lead">I design, build, and deploy professional websites for real businesses, from a café menu page to a law firm's practice site to a full school website. Clean, fast, mobile-first, and live on your own domain.</p>
     <div class="actions"><a href="#work" class="btn btn-amber">See my work</a><a href="#contact" class="btn btn-ghost">Get a website for my business</a></div>
   </div>
+  <div class="hero-art" aria-hidden="true">
+    <div class="mock">
+      <div class="mock-bar"><span class="dots"></span><em>yourbusiness.com</em></div>
+      <div class="mock-body">
+        <div class="mock-nav"><b></b><span></span><span></span><span></span></div>
+        <div class="mock-hero"><div class="mock-txt"><i class="l1"></i><i class="l2"></i><i class="l3"></i><u></u></div><div class="mock-img"></div></div>
+        <div class="mock-cards"><div></div><div></div><div></div></div>
+      </div>
+    </div>
+    <div class="float f1"><%- glyph("phone") %><span>Mobile-first</span></div>
+    <div class="float f2"><%- glyph("search") %><span>SEO-ready</span></div>
+    <div class="float f3"><%- glyph("bolt") %><span>Live in ~24h</span></div>
+  </div>
+</section>
+
+<section class="wrap statband">
   <dl class="stats">
-    <% site.stats.forEach(s => { %><div><dt><%= s[1] %></dt><dd><%= s[0] %></dd></div><% }) %>
+    <% site.stats.forEach(s => { const m = String(s[0]).match(/^([\d.]+)(.*)$/); %>
+    <div><dt><%= s[1] %></dt><dd><% if (m) { %><span class="count" data-to="<%= m[1] %>" data-dec="<%= (m[1].split('.')[1] || '').length %>"><%= m[1] %></span><%= m[2] %><% } else { %><%= s[0] %><% } %></dd></div><% }) %>
+    <div><dt>Live websites</dt><dd><span class="count" data-to="<%= site.projects.length %>" data-dec="0"><%= site.projects.length %></span></dd></div>
   </dl>
 </section>
-<div class="wrap"><ul class="chips"><% site.industries.forEach(i => { %><li><%= i %></li><% }) %></ul></div>
 
-<section class="sec wrap split" id="about">
+<div class="marquee" aria-label="Industries and projects">
+  <div class="marquee-track">
+    <% for (let k = 0; k < 2; k++) { %><ul <%- k ? 'aria-hidden="true"' : '' %>><% site.industries.concat(site.projects.map(p => p.name)).forEach(i => { %><li><%= i %></li><% }) %></ul><% } %>
+  </div>
+</div>
+
+<section class="sec wrap split" id="about" data-n="01">
   <div class="photo"><img src="<%= site.photo %>" alt="Yusuf, founder and developer at YUSUF TECH" width="420" height="420" loading="lazy"></div>
   <div class="prose"><h2>Hi, I'm Yusuf.</h2><% site.about.forEach(p => { %><p><%= p %></p><% }) %></div>
 </section>
 
-<section class="sec wrap" id="services">
+<section class="sec wrap alt" id="services" data-n="02">
   <h2>Who I build for</h2>
   <p class="sub">Every business is different. The website shouldn't look like it isn't.</p>
-  <div class="grid3"><% site.services.forEach(s => { %><article class="card"><h3><%= s[0] %></h3><p><%= s[1] %></p></article><% }) %></div>
+  <div class="grid3 bento"><% site.services.forEach((s, i) => { %><article class="card"><span class="gi"><%- glyph(site.serviceIcons[i]) %></span><h3><%= s[0] %></h3><p><%= s[1] %></p></article><% }) %></div>
 </section>
 
-<section class="sec wrap" id="marketing">
+<section class="sec wrap mesh" id="marketing" data-n="03">
   <p class="kicker"><%= site.marketing.kicker %></p>
   <h2><%= site.marketing.title %></h2>
   <div class="prose mk-intro"><% site.marketing.intro.forEach(p => { %><p><%= p %></p><% }) %></div>
 
   <h3 class="mk-h"><%= site.marketing.servicesTitle %></h3>
-  <div class="grid2"><% site.marketing.services.forEach(m => { %>
+  <div class="grid2"><% site.marketing.services.forEach((m, mi) => { %>
     <article class="card mk">
-      <span class="n"><%= m.n %></span>
+      <div class="mk-vis" aria-hidden="true">
+      <% if (mi === 0) { %>
+        <div class="serp">
+          <div class="serp-q"><%- glyph("search") %><span>best service near me</span></div>
+          <div class="serp-r"><small>www.yourbusiness.com</small><b>Your Business | Trusted Local Service</b><p>Clear meta title, helpful description and fast pages that help customers find you.</p></div>
+          <svg class="trend" viewBox="0 0 200 60" preserveAspectRatio="none"><polyline points="0,52 30,46 60,48 90,34 120,30 150,18 200,6"/></svg>
+        </div>
+      <% } else { %>
+        <div class="ad">
+          <div class="ad-card"><small>Sponsored</small><b>Fresh. Fast. Close to you.</b><span class="ad-btn">Learn more</span></div>
+          <div class="ad-tags"><span>Local audience</span><span>Interests</span><span>Ages 18–45</span></div>
+          <div class="bars"><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+      <% } %>
+      </div>
+      <div class="mk-head"><span class="gi"><%- glyph(mi === 0 ? "search" : "megaphone") %></span><span class="n"><%= m.n %></span></div>
       <h3><%= m.name %></h3>
       <p class="mk-tag"><%= m.tag %></p>
       <p><%= m.desc %></p>
@@ -97,16 +139,17 @@
   </div>
 </section>
 
-<section class="sec wrap" id="work">
+<section class="sec wrap alt" id="work" data-n="04">
   <h2>Featured work</h2>
   <p class="sub"><%= site.projects.length %> live sites across five industries. Each one is a real, working site.</p>
   <div class="filters" role="group" aria-label="Filter projects">
     <button class="on" data-f="all">All</button><% site.categories.forEach(c => { %><button data-f="<%= c %>"><%= c %></button><% }) %>
   </div>
-  <div class="grid3" id="projects">
+  <div class="gal-nav"><span>Swipe or drag to browse</span><button type="button" id="gprev" aria-label="Previous projects">&larr;</button><button type="button" id="gnext" aria-label="Next projects">&rarr;</button></div>
+  <div class="grid3 gallery" id="projects">
     <% site.projects.forEach(p => { %>
     <a class="proj" data-cat="<%= p.cat %>" href="<%= p.url %>" target="_blank" rel="noopener">
-      <span class="thumb" style="background:linear-gradient(135deg,<%= p.grad[0] %>,<%= p.grad[1] %>)"><img src="<%= p.shot %>" alt="Preview of <%= p.name %>" loading="lazy" width="700" height="440"><i><%= p.ini %></i></span>
+      <span class="thumb" data-g1="<%= p.grad[0] %>" data-g2="<%= p.grad[1] %>"><span class="bar"><span class="dots"></span><em><%= p.url.startsWith("http") ? new URL(p.url).hostname : new URL(site.url).hostname.replace(/^www\./, "") + p.url.replace(/\/$/, "") %></em></span><img src="<%= p.shot %>" alt="Preview of <%= p.name %>" loading="lazy" width="700" height="440"><i><%= p.ini %></i><span class="ov">View live site <%- glyph("arrow") %></span></span>
       <h3><%= p.name %></h3>
       <p><%= p.desc %></p>
       <small><%= p.city %> · <%= p.stack %></small>
@@ -115,7 +158,7 @@
   </div>
 </section>
 
-<section class="sec wrap" id="pricing">
+<section class="sec wrap" id="pricing" data-n="05">
   <h2>How it works</h2>
   <ol class="grid4 steps"><% site.process.forEach((p, i) => { %><li class="card"><span class="n"><%= i + 1 %></span><h3><%= p[0] %></h3><p><%= p[1] %></p></li><% }) %></ol>
   <h2 class="gap">Packages</h2>
@@ -131,22 +174,29 @@
   </div>
 </section>
 
-<section class="sec wrap" id="skills">
+<section class="sec wrap alt" id="skills" data-n="06">
   <h2>Skills & tools</h2>
   <div class="skills"><% site.skills.forEach(g => { %><div><h3><%= g[0] %></h3><ul><% g[1].forEach(i => { %><li><%= i %></li><% }) %></ul></div><% }) %></div>
 </section>
 
-<section class="sec wrap" id="why">
+<section class="sec wrap" id="why" data-n="07">
   <h2>Why work with me</h2>
-  <div class="grid3"><% site.why.forEach(w => { %><article class="card"><h3><%= w[0] %></h3><p><%= w[1] %></p></article><% }) %></div>
+  <div class="grid3"><% site.why.forEach((w, i) => { %><article class="card"><span class="gi"><%- glyph(site.whyIcons[i]) %></span><h3><%= w[0] %></h3><p><%= w[1] %></p></article><% }) %></div>
 </section>
 
-<section class="sec wrap" id="faq">
+<% if (site.testimonials && site.testimonials.length) { %>
+<section class="sec wrap" id="proof">
+  <h2>What clients say</h2>
+  <div class="grid3"><% site.testimonials.forEach(t => { %><figure class="card quote"><blockquote><%= t.quote %></blockquote><figcaption><b><%= t.name %></b><span><%= t.role %></span></figcaption></figure><% }) %></div>
+</section>
+<% } %>
+
+<section class="sec wrap alt" id="faq" data-n="08">
   <h2>Questions people ask</h2>
   <div class="faq"><% site.faqs.forEach(f => { %><details><summary><%= f[0] %></summary><p><%= f[1] %></p></details><% }) %></div>
 </section>
 
-<section class="sec wrap split" id="contact">
+<section class="sec wrap split pop" id="contact" data-n="09">
   <div>
     <h2>Tell me what you run. I'll tell you what it needs.</h2>
     <p class="lead">Café, laundry, law firm, agency, school, or your own name. If it needs a website that represents it properly, that's what I build.</p>
